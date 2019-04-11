@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package s12.example;
+
+message ExampleTwoRequest {
+    int32 id = 1;
+}
+
+message ExampleTwoResponse {
+    int32 id = 1;
+    string msg = 2;
+}

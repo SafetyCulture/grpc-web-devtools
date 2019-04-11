@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package s12.example;
+
+import "example2.proto";
+
+service ExampleService {
+    rpc ExampleOne(ExampleOneRequest) returns (ExampleOneResponse);
+    rpc ExampleTwo(ExampleTwoRequest) returns (ExampleTwoResponse);
+}
+
+message ExampleOneRequest {
+    string msg = 1;
+}
+
+message ExampleOneResponse {
+    string id = 1;
+    string msg = 2;
+}
