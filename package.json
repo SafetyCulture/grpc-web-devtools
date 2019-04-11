@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@safetyculture/s12-apis-web": "^1.8.5",
     "google-protobuf": "^3.7.1",
     "grpc-web": "^1.0.4",
     "react": "^16.8.6",

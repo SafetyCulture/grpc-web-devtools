@@ -2,5 +2,6 @@
   "name": "gRPC-Web Developer Tools",
   "version": "1.0.0",
   "manifest_version": 2,
-  "devtools_page": "devtools.html"
+  "devtools_page": "devtools.html",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

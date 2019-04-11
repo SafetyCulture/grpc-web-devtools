@@ -801,6 +801,14 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
+"@safetyculture/s12-apis-web@^1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@safetyculture/s12-apis-web/-/s12-apis-web-1.8.5.tgz#02f1c6af112355b46bd84fc699206ae4a151f7e5"
+  integrity sha512-NR8k3xhZUBYEZQLXqT5PLUsiU2DYLtBTWiWd/Mr3uFyb+OfQzb6ea7LIRtqks0uBzo48mbLMmiafIdcu7+bLtA==
+  dependencies:
+    google-protobuf "^3.6.1"
+    grpc-web "^1.0.4"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.0.0.tgz#5acf239cd2747b1a36ec7e708de05d914cb9b948"
@@ -3716,7 +3724,7 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-google-protobuf@^3.7.1:
+google-protobuf@^3.6.1, google-protobuf@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.7.1.tgz#9ef0fa3bc9ee416ba3fbe32b21ec6b7626f898e2"
   integrity sha512-6fvlUey6cNKtWSEn1bt4CT4wc2EID1fVluHS1dOnqIlxyIu3cBid2BvWE8Rwl6wN+hRTgiAKhfyydAGV/weZYQ==
