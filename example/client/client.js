@@ -4,7 +4,13 @@ import Sentencer from 'sentencer';
 import { ExampleServicePromiseClient } from './example_grpc_web_pb';
 import { ExampleOneRequest } from './example_pb';
 
-require('./example_grpc_web_devtools_pb')
+const __DEV__ = true;
+
+// enable devtools for deserialization
+if (__DEV__) {
+  require('./example_grpc_web_devtools_pb')
+}
+
 
 var body = document.getElementsByTagName('body')
 var client = new ExampleServicePromiseClient('http://0.0.0.0:18080', null, null);

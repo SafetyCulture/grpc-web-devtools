@@ -1,17 +1,9 @@
 /*global chrome*/
 
-import { AccessTokenResponse } from '@safetyculture/s12-apis-web/s12/authorization/v1/authorization_pb';
-import { DevicesResponse } from '@safetyculture/s12-apis-web/s12/iot/v1/devices_pb';
 import React, { Component } from 'react';
 import './App.css';
 import { decodeStringToUint8Array } from './base64';
 import GrpcWebStreamParser from './GrpcWebStreamParser';
-
-
-var serviceMap = {
-  "/s12.authorization.v1.AuthorizationService/GetAccessToken": { res: AccessTokenResponse },
-  "/s12.iot.v1.DevicesService/ListDevices": { res: DevicesResponse },
-}
 
 
 class App extends Component {
@@ -20,27 +12,57 @@ class App extends Component {
     requests: [],
   }
 
+  services = null;
+  hooksFound = false;
+  checkInterval = null;
+
+  checkforHook() {
+    if (this.hooksFound) {
+      return;
+    }
+
+    chrome.devtools.inspectedWindow.eval("window.__GRPCWEB_DEVTOOLS__", hooks => {
+      if (hooks && hooks.services) {
+        this.services = hooks.services;
+        this.hooksFound = true;
+        clearInterval(this.checkInterval);
+      }
+    })
+  }
+
   componentDidMount() {
     if (window.chrome && window.chrome.devtools) {
+
+      chrome.devtools.network.onNavigated.addListener(() => {
+        this.checkforHook();
+      });
+      this.checkInterval = setInterval(() => this.checkforHook, 1000);
+      this.checkforHook();
+
       chrome.devtools.network.onRequestFinished.addListener(rtn => {
         if (rtn.request.postData && rtn.request.postData.mimeType === "application/grpc-web-text") {
           const { requests } = this.state;
           var url = new URL(rtn.request.url)
-          if (serviceMap[url.pathname]) {
-            
+
+          var grpcRequest = {
+            path: url.pathname,
+            obj: null,
+          }
+
+          if (this.hooksFound && this.services[url.pathname]) {            
             rtn.getContent((content, encoding) => {
-           
-              var obj = convertResponse(atob(content), serviceMap[url.pathname].res.deserializeBinary)
-              requests.push({
-                path: url.pathname,
-                obj: obj,
+            
+              var data = getData(atob(content))
+
+              chrome.devtools.inspectedWindow.eval(`window.__GRPCWEB_DEVTOOLS__.services[${url.pathname}]requestDeserializeFn("${data}")`, (out,err) => {
+                console.log(out,err);
               })
 
-              this.setState({ requests });
-
+              // grpcRequest.obj = convertResponse(atob(content), this.services[url.pathname].requestDeserializeFn)
             })
-
           }
+          requests.push(grpcRequest);
+          this.setState({ requests });
   
         }
       });
@@ -65,7 +87,7 @@ class App extends Component {
 }
 
 
-function convertResponse(responseText, deserializeFn) {
+function getData(responseText) {
   var newPos = responseText.length - responseText.length % 4;
   var newData = responseText.substr(0, newPos);
   var byteSource = decodeStringToUint8Array(newData);
@@ -77,8 +99,7 @@ function convertResponse(responseText, deserializeFn) {
     var FrameType = GrpcWebStreamParser.FrameType;
     for (var i = 0; i < messages.length; i++) {
       if (FrameType.DATA in messages[i]) {
-        var data = messages[i][FrameType.DATA];
-          return deserializeFn(data).toObject();
+        return messages[i][FrameType.DATA];
       }
     }
   }
