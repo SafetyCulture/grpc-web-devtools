@@ -19,7 +19,7 @@ node_modules
 protoc-gen-grpc-web-devtools
 
 # example
-example/*_pb.js
+example/**/*_pb.js
 
 # misc
 .DS_Store

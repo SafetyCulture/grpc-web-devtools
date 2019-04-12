@@ -272,7 +272,7 @@ public:
     PrintFileHeader(&printer, vars);
     PrintCommonJsMessagesDeps(&printer, file);
 
-    printer.Print(vars, "var window = typeof window === 'undefined' ? {} : window;\n");
+    // printer.Print(vars, "var window = typeof window === 'undefined' ? {} : window;\n");
     printer.Print(vars, "window.__GRPCWEB_DEVTOOLS__ = window.__GRPCWEB_DEVTOOLS__ || { services: {} };\n\n");
 
     for (int service_index = 0; service_index < file->service_count(); ++service_index)
