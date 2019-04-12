@@ -1,0 +1,11 @@
+version: '3'
+services:
+  server:
+    image: grpcweb-devtools-example/server
+    depends_on:
+      - envoy
+  
+  envoy:
+    image: grpcweb-devtools-example/envoy
+    ports:
+      - "18080:8080"

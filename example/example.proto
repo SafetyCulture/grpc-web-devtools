@@ -4,6 +4,8 @@ package s12.example;
 
 import "example2.proto";
 
+option go_package = "main";
+
 service ExampleService {
     rpc ExampleOne(ExampleOneRequest) returns (ExampleOneResponse);
     rpc ExampleTwo(ExampleTwoRequest) returns (ExampleTwoResponse);

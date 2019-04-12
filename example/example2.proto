@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package s12.example;
 
+option go_package = "main";
+
 message ExampleTwoRequest {
     int32 id = 1;
 }
