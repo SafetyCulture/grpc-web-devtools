@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
 	context "golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -17,11 +18,17 @@ const (
 
 type server struct{}
 
-func (s *server) ExampleOne(context.Context, *ExampleOneRequest) (*ExampleOneResponse, error) {
-	return nil, nil
+func (s *server) ExampleOne(_ context.Context, req *ExampleOneRequest) (*ExampleOneResponse, error) {
+	return &ExampleOneResponse{
+		Id:  fmt.Sprintf("%d", time.Now().Unix()),
+		Msg: req.Msg,
+	}, nil
 }
 func (s *server) ExampleTwo(context.Context, *ExampleTwoRequest) (*ExampleTwoResponse, error) {
-	return nil, nil
+	return &ExampleTwoResponse{
+		Id:  int32(time.Now().Unix()),
+		Msg: "Example Two",
+	}, nil
 }
 
 func main() {

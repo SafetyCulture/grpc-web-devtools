@@ -16,6 +16,13 @@ example: install
 		--grpc-web-devtools_out=:example/client example/*.proto
 	protoc -I./example --go_out=plugins=grpc:example/server example/*.proto
 
+example-client:
+	npm install --prefix example/client
+	npm run build --prefix example/client
+
+example-client-up:
+	python3 -m http.server --directory=example/client/
+
 example-envoy:
 	docker build -t grpcweb-devtools-example/envoy -f ./example/envoy.Dockerfile ./example
 
