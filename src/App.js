@@ -49,21 +49,16 @@ class App extends Component {
             obj: null,
           }
 
-          if (this.hooksFound && this.services[url.pathname]) {            
+          if (this.hooksFound && this.services[url.pathname]) {
             rtn.getContent((content, encoding) => {
-            
-              var data = getData(atob(content))
 
-              chrome.devtools.inspectedWindow.eval(`window.__GRPCWEB_DEVTOOLS__.services[${url.pathname}]requestDeserializeFn("${data}")`, (out,err) => {
-                console.log(out,err);
-              })
-
+              //var data = getData(atob(content))
               // grpcRequest.obj = convertResponse(atob(content), this.services[url.pathname].requestDeserializeFn)
             })
           }
           requests.push(grpcRequest);
           this.setState({ requests });
-  
+
         }
       });
     }
@@ -72,6 +67,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <button onClick={() => {
+          this.props.port.postMessage({
+            action: "clearPage",
+            target: "content",
+            tabId: this.props.tabId,
+          });
+        }}>Clear</button>
         {this.state.requests.map(req => {
           return (
             <div>

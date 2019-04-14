@@ -1,12 +1,21 @@
+/* global chrome */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Setup port for communication with the background script
+var port = chrome.runtime.connect(null, { name: "panel" });
+var tabId = chrome.devtools.inspectedWindow.tabId;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function post(message) {
+  message.tabId = tabId;
+  port.postMessage(message);
+}
+
+
+ReactDOM.render(<App port={port} tabId={tabId} />, document.getElementById('root'));
+
+// Sent initialization message.
+post({ action: "init" });
