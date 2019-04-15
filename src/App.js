@@ -31,36 +31,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (window.chrome && window.chrome.devtools) {
+    this.props.port.onMessage.addListener(this._onMessageRecived)
+  }
 
-      chrome.devtools.network.onNavigated.addListener(() => {
-        this.checkforHook();
-      });
-      this.checkInterval = setInterval(() => this.checkforHook, 1000);
-      this.checkforHook();
-
-      chrome.devtools.network.onRequestFinished.addListener(rtn => {
-        if (rtn.request.postData && rtn.request.postData.mimeType === "application/grpc-web-text") {
-          const { requests } = this.state;
-          var url = new URL(rtn.request.url)
-
-          var grpcRequest = {
-            path: url.pathname,
-            obj: null,
-          }
-
-          if (this.hooksFound && this.services[url.pathname]) {
-            rtn.getContent((content, encoding) => {
-
-              //var data = getData(atob(content))
-              // grpcRequest.obj = convertResponse(atob(content), this.services[url.pathname].requestDeserializeFn)
-            })
-          }
-          requests.push(grpcRequest);
-          this.setState({ requests });
-
-        }
-      });
+  _onMessageRecived = ({ action, data }) => {
+    if (action === "gRPCNetworkCall") {
+      const { requests } = this.state;
+      requests.push(data)
+      this.setState({ requests });
     }
   }
 
@@ -77,8 +55,9 @@ class App extends Component {
         {this.state.requests.map(req => {
           return (
             <div>
-              <h3>{req.path}</h3>
-              <div>{JSON.stringify(req.obj)}</div>
+              <h3>{req.method}</h3>
+              <div>Request: {JSON.stringify(req.request)}</div>
+              <div>Response: {JSON.stringify(req.response)}</div>
               <hr></hr>
             </div>
           )

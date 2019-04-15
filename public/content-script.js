@@ -1,21 +1,29 @@
 
 var port;
-port = chrome.runtime.connect(null, { name: "content" });
-port.postMessage({ action: "init" });
-port.onDisconnect.addListener(() => {
-  console.log("disconnect")
-  port = null;
-});
 
-
-// Handle requests coming from the panel
-port.onMessage.addListener(message => {
-  console.log(message)
-  switch (message.action) {
-    case "clearPage":
-      window.document.body.innerHTML = "";
-      break;
+function setupPortIfNeeded() {
+  if (!port) {
+    port = chrome.runtime.connect(null, { name: "content" });
+    port.postMessage({ action: "init" });
+    port.onDisconnect.addListener(() => {
+      port = null;
+    });
   }
-  console.log(window.__GRPCWEB_DEVTOOLS__.services)
-});
+}
 
+function sendGRPCNetworkCall(data) {
+  setupPortIfNeeded();
+  port.postMessage({
+    action: "gRPCNetworkCall",
+    target: "panel",
+    data,
+  });
+}
+
+window.addEventListener("message", function (event) {
+  if (event.source != window) return;
+  if (event.data.type && event.data.type == "__GRPCWEB_DEVTOOLS__") {
+    console.log(event.data)
+    sendGRPCNetworkCall(event.data);
+  }
+}, false)
