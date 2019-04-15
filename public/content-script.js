@@ -2,7 +2,7 @@
 var port;
 
 function setupPortIfNeeded() {
-  if (!port) {
+  if (!port && chrome && chrome.runtime) {
     port = chrome.runtime.connect(null, { name: "content" });
     port.postMessage({ action: "init" });
     port.onDisconnect.addListener(() => {
@@ -13,11 +13,13 @@ function setupPortIfNeeded() {
 
 function sendGRPCNetworkCall(data) {
   setupPortIfNeeded();
-  port.postMessage({
-    action: "gRPCNetworkCall",
-    target: "panel",
-    data,
-  });
+  if (port) {
+    port.postMessage({
+      action: "gRPCNetworkCall",
+      target: "panel",
+      data,
+    });
+  }
 }
 
 window.addEventListener("message", function (event) {

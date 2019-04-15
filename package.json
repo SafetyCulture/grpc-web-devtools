@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@safetyculture/s12-apis-web": "^1.8.5",
-    "google-protobuf": "^3.7.1",
-    "grpc-web": "^1.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "react-redux": "^7.0.2",
+    "react-scripts": "2.1.8",
+    "redux-starter-kit": "^0.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

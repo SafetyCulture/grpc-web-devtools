@@ -7,7 +7,6 @@ import { ExampleTwoRequest } from './example2_pb';
 
 const __DEV__ = true;
 
-
 // TODO: This should be in a npm package
 const enableDevTools = function (clients) {
   if (clients.constructor !== Array) {
