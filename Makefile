@@ -21,7 +21,7 @@ example-client:
 	npm run build --prefix example/client
 
 example-client-up:
-	python3 -m http.server --directory=example/client/
+	npm run start --prefix example/client
 
 example-envoy:
 	docker build -t grpcweb-devtools-example/envoy -f ./example/envoy.Dockerfile ./example
