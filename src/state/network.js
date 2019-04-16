@@ -4,7 +4,14 @@ const networkSlice = createSlice({
     slice: 'network',
     initialState: [],
     reducers: {
-        traceRequest(state, action) { state.push(action.payload) },
+        traceRequest(state, action) {
+            const { payload } = action;
+            if (payload.method) {
+                const parts = payload.method.split('/')
+                payload.endpoint = parts.pop() || parts.pop();
+            }
+            state.push(action.payload);
+        },
     }
 });
 

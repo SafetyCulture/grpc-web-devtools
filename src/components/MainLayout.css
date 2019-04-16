@@ -1,0 +1,26 @@
+
+.shadow-split-widget {
+  display: flex;
+  overflow: hidden;
+}
+
+.shadow-split-widget.hbox > .shadow-split-widget-sidebar {
+  border: 0;
+  border-right: 1px solid var(--divider-color);
+}
+
+.shadow-split-widget-contents {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  contain: layout size style;
+}
+
+.shadow-split-widget-sidebar {
+  flex: none;
+  flex-basis: 300px;
+}
+
+.shadow-split-widget-main {
+  flex: auto;
+}

@@ -1,19 +1,38 @@
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { traceRequest } from './state/network';
 import './App.css';
+import MainLayout from './components/MainLayout';
+import Toolbar from './components/Toolbar';
+
 
 class App extends Component {
 
   render() {
-    const { traceRequest, network } = this.props;
+    // const { traceRequest, network } = this.props;
     return (
-      <div className="App">
-        <button onClick={() => {
-          traceRequest({ method: "/a.url/goes/here", request: { req: "Some request" }, response: "Some response" });
-        }}>Clear</button>
-        {network.map(req => {
+      <div className="vbox flex-auto">
+        <div className="hbox widget">
+          <div className="vbox app-contents flex-auto">
+            <div className="vbox widget">
+              <div className="vbox flex-auto">
+                <div className="widget vbox">
+                  <Toolbar />
+                  <MainLayout />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+/*
+{network.map(req => {
           return (
             <div>
               <h3>{req.method}</h3>
@@ -23,12 +42,12 @@ class App extends Component {
             </div>
           )
         })}
-      </div>
-    );
-  }
-}
 
-const mapStateToProps = state => ({ network: state.network })
-const mapDispatchToProps = { traceRequest };
+<div className="vbox widget">
+                <button onClick={() => {
+                    traceRequest({ method: "/a.url/goes/here", request: { req: "Some request" }, response: "Some response" });
+                  }}>add fake request
+                </button>
+              </div>
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+        */

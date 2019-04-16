@@ -1,0 +1,90 @@
+
+.network-list {
+  overflow: hidden;
+}
+
+.data-grid {
+  position: relative;
+  line-height: 120%;
+  border: none;
+    flex: auto;
+}
+
+.data-grid table {
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: separate;
+  height: 100%;
+  width: 100%;
+}
+
+.data-grid th > div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.data-grid th {
+  text-align: left;
+  background-color: var(--toolbar-bg-color);
+  border-bottom: 1px solid rgb(205, 205, 205);
+  font-weight: normal;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 18px;
+  height: 18px;
+  padding: 1px 4px;
+}
+
+.data-grid table.data tr {
+  height: 20px;
+  display: table-row;
+}
+
+
+.data-grid table.data tr:nth-child(odd) {
+  background-color: rgb(245, 245, 245);
+}
+
+.data-grid td {
+  height: 21px;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 18px;
+  padding: 1px 4px;
+}
+
+.data-grid .data-container {
+  top: 27px;
+  bottom: 0;
+  overflow-y: overlay;
+  transform: translateZ(0);
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+}
+
+.data-grid table.data {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 0 none transparent;
+  table-layout: fixed;
+  height: auto;
+}
+
+.header-container {
+  height: 27px;
+  background-color: var(--toolbar-bg-color);
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+}

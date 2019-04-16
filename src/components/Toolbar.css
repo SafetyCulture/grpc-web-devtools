@@ -1,0 +1,44 @@
+
+.toolbar {
+  background-color: var(--toolbar-bg-color);
+  border-bottom: var(--divider-border);
+  flex: none;
+  padding: 0 2px;
+}
+
+.toolbar-shadow {
+  position: relative;
+  white-space: nowrap;
+  height: 26px;
+  overflow: hidden;
+  z-index: 12;
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.toolbar-item {
+  color: #5a5a5a;
+  position: relative;
+  display: flex;
+  background-color: transparent;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 26px;
+  border: none;
+  white-space: pre;
+}
+
+:focus {
+  outline-width: 0;
+}
+
+.toolbar-button {
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 28px;
+  background: transparent;
+  border-radius: 0;
+}
