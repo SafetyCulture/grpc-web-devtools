@@ -47,9 +47,12 @@ code {
 }
 
 :root {
+  --accent-color: #1a73e8;
   --toolbar-bg-color: #f3f3f3; 
   --divider-border: 1px solid #d0d0d0;
   --divider-color: #d0d0d0;
+  --selection-bg-color: var(--accent-color);
+  --selection-fg-color: white;
 }
 
 .flex-auto {

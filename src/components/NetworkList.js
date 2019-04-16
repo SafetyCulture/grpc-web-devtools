@@ -2,17 +2,20 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { selectLogEntry } from '../state/network';
 import './NetworkList.css';
 
 class NetworkList extends Component {
   render() {
-    const { network } = this.props;
+    const { network, selectLogEntry } = this.props;
+
+    console.log(network.selectedEntry)
     return (
       <div className="widget vbox network-list">
         <div className="widget vbox">
-          <div class="data-grid">
+          <div className="data-grid">
             <div className="header-container">
-              <table class="header">
+              <table className="header">
                 <tbody>
                   <tr>
                     <th>
@@ -23,10 +26,15 @@ class NetworkList extends Component {
               </table>
             </div>
             <div className="data-container">
-              <table class="data">
+              <table className="data">
                 <tbody>
-                  {network.map(req => (
-                    <tr title={req.method}>
+                  {network.log.map((req, idx) => (
+                    <tr 
+                      key={idx}
+                      onClick={() => selectLogEntry(idx)}
+                      title={req.method}
+                      className={idx === network.selectedIdx ? "selected" : ""}
+                    >
                       <td>{req.endpoint}</td>
                     </tr>
                   ))}
@@ -41,4 +49,5 @@ class NetworkList extends Component {
 }
 
 const mapStateToProps = state => ({ network: state.network })
-export default connect(mapStateToProps)(NetworkList)
+const mapDispatchToProps = { selectLogEntry };
+export default connect(mapStateToProps, mapDispatchToProps)(NetworkList)

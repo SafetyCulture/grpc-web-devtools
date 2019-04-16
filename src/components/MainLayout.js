@@ -2,9 +2,8 @@
 
 import React, { Component } from 'react';
 import './MainLayout.css';
+import NetworkDetails from './NetworkDetails';
 import NetworkList from './NetworkList';
-
-
 class MainLayout extends Component {
   render() {
     return (
@@ -14,9 +13,7 @@ class MainLayout extends Component {
             <NetworkList />
           </div>
           <div className="shadow-split-widget-contents shadow-split-widget-main">
-            <div className="widget vbox">
-              Right
-            </div>
+            <NetworkDetails />
           </div>
         </div>
       </div>

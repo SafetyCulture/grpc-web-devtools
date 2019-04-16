@@ -41,11 +41,20 @@
 .data-grid table.data tr {
   height: 20px;
   display: table-row;
+  cursor: pointer;
 }
-
 
 .data-grid table.data tr:nth-child(odd) {
   background-color: rgb(245, 245, 245);
+}
+
+.data-grid table.data tr:hover {
+  background-color: rgb(241, 246, 253);
+}
+
+.data-grid table.data tr.selected {
+  color: var(--selection-fg-color);
+  background-color: var(--selection-bg-color);
 }
 
 .data-grid td {

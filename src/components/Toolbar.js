@@ -2,18 +2,18 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { traceRequest } from '../state/network';
+import { networkLog } from '../state/network';
 import './Toolbar.css';
 
 
 
 class Toolbar extends Component {
   render() {
-    const { traceRequest } = this.props;
+    const { networkLog } = this.props;
     return (
       <div className="toolbar">
         <div className="toolbar-shadow">
-          <ToolbarButton onClick={() => traceRequest({ method: "/a.url/goes/here", request: { req: "Some request" }, response: "Some response" })} />
+          <ToolbarButton onClick={() => networkLog({ method: "/a.url/goes/here", request: { req: "Some request" }, response: "Some response" })} />
         </div>
       </div>
     );
@@ -29,5 +29,5 @@ class ToolbarButton extends Component {
     );
   }
 }
-const mapDispatchToProps = { traceRequest };
+const mapDispatchToProps = { networkLog };
 export default connect(null, mapDispatchToProps)(Toolbar);

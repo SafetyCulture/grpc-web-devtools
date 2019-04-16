@@ -2,13 +2,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { configureStore } from 'redux-starter-kit'
-
-
+import { Provider } from 'react-redux';
+import { configureStore } from 'redux-starter-kit';
 import App from './App';
-import { default as networkReducer, traceRequest } from './state/network'
 import './index.css';
+import networkReducer, { networkLog } from './state/network';
+
+
 
 var port
 // Setup port for communication with the background script
@@ -33,7 +33,7 @@ const store = configureStore({
 
 function _onMessageRecived({ action, data }) {
   if (action === "gRPCNetworkCall") {
-    store.dispatch(traceRequest(data))
+    store.dispatch(networkLog(data))
   }
 }
 
