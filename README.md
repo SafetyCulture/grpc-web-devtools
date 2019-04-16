@@ -18,14 +18,25 @@
 ## Usage
 
 ```javascript
-const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || function () { };
+const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || (() => {});
 const client = new EchoServiceClient('http://myapi.com');
 enableDevTools([
   client,
 ]);
 ```
 
+## Example
+ 
+The example uses `docker-compose` to start a simple gRPC server, JavaScript client and the Envoy proxy for gRPC-Web:
 
+```bash
+make example-up
+```
 
-<!-- go get -u github.com/golang/protobuf/{proto,protoc-gen-go} -->
+Example will be running on [http://localhost:8080](http://localhost:8080)
 
+To stop the example:
+
+```bash
+make example-down
+```

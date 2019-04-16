@@ -22,8 +22,11 @@ example-envoy:
 example-server: example-build-backend
 	docker build -t grpcweb-devtools-example/server ./example/server
 
-example-backend-up: example-build example-envoy example-server
+example-client: example-build-frontend
+	docker build -t grpcweb-devtools-example/client ./example/client
+
+example-up: example-server example-envoy example-server example-client
 	docker-compose -f ./example/docker-compose.yml up -d;
 
-example-backend-down:
+example-down:
 	docker-compose -f ./example/docker-compose.yml down
