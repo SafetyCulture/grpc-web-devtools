@@ -8,8 +8,8 @@ import { ExampleOneRequest } from './example_pb';
 const __DEV__ = true;
 const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || function () { };
 
-var body = document.getElementsByTagName('body')
-var client = new ExampleServicePromiseClient('http://0.0.0.0:18080', null, null);
+const body = document.getElementsByTagName('body')
+const client = new ExampleServicePromiseClient('http://0.0.0.0:18080', null, null);
 
 if (__DEV__) {
   enableDevTools([
@@ -18,7 +18,7 @@ if (__DEV__) {
 }
 
 function exampleOne() {
-  var req1 = new ExampleOneRequest();
+  const req1 = new ExampleOneRequest();
   req1.setMsg(Sentencer.make("This is {{ an_adjective }} {{ noun }}."));
   client.exampleOne(req1).then(res => {
     document.body.innerHTML += `<div>${res.getMsg()}</div>`
@@ -26,7 +26,7 @@ function exampleOne() {
 }
 
 function exampleTwo() {
-  var req1 = new ExampleTwoRequest();
+  const req1 = new ExampleTwoRequest();
   client.exampleTwo(req1).then(res => {
     document.body.innerHTML += `<div>${res.getMsg()}</div>`
   }).catch(console.error)

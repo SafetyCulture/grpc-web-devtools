@@ -3,7 +3,6 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
     if (clients.constructor !== Array) {
         return
     }
-
     clients.map(client => {
         client.client_.rpcCall2 = function (method, request, metadata, methodInfo, callback) {
             var newCallback = function (err, response) {

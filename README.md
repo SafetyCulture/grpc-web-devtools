@@ -17,6 +17,13 @@
 
 ## Usage
 
+```javascript
+const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || function () { };
+const client = new EchoServiceClient('http://myapi.com');
+enableDevTools([
+  client,
+]);
+```
 
 
 
