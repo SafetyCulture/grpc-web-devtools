@@ -8,8 +8,6 @@ import './NetworkList.css';
 class NetworkList extends Component {
   render() {
     const { network, selectLogEntry } = this.props;
-
-    console.log(network.selectedEntry)
     return (
       <div className="widget vbox network-list">
         <div className="widget vbox">

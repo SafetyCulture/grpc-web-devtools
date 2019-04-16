@@ -1,3 +1,4 @@
+// Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
 var port;
 
@@ -25,7 +26,6 @@ function sendGRPCNetworkCall(data) {
 window.addEventListener("message", function (event) {
   if (event.source != window) return;
   if (event.data.type && event.data.type == "__GRPCWEB_DEVTOOLS__") {
-    console.log(event.data)
     sendGRPCNetworkCall(event.data);
   }
 }, false)

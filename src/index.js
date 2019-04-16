@@ -19,7 +19,6 @@ if (chrome) {
     // Sent initialization message.
     port.postMessage({ tabId, action: "init" });
     port.onMessage.addListener(_onMessageRecived);
-
   } catch (error) {
     console.warn("not running app in chrome extension panel")
   }

@@ -1,9 +1,9 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
 import Sentencer from 'sentencer';
+import { ExampleTwoRequest } from './example2_pb';
 import { ExampleServicePromiseClient } from './example_grpc_web_pb';
 import { ExampleOneRequest } from './example_pb';
-import { ExampleTwoRequest } from './example2_pb';
 
 const __DEV__ = true;
 
@@ -42,8 +42,6 @@ const enableDevTools = function (clients) {
 var body = document.getElementsByTagName('body')
 var client = new ExampleServicePromiseClient('http://0.0.0.0:18080', null, null);
 
-// console.log(client)
-
 if (__DEV__) {
   enableDevTools([
     client,
@@ -55,7 +53,6 @@ function exampleOne() {
   req1.setMsg(Sentencer.make("This is {{ an_adjective }} {{ noun }}."));
   client.exampleOne(req1).then(res => {
     document.body.innerHTML += `<div>${res.getMsg()}</div>`
-    // console.log(res.toObject())
   }).catch(console.error)
 }
 
@@ -63,7 +60,6 @@ function exampleTwo() {
   var req1 = new ExampleTwoRequest();
   client.exampleTwo(req1).then(res => {
     document.body.innerHTML += `<div>${res.getMsg()}</div>`
-    // console.log(res.toObject())
   }).catch(console.error)
 }
 

@@ -3,15 +3,8 @@
 import React, { Component } from 'react';
 import ReactJson from 'react-json-view';
 import { connect } from 'react-redux';
+
 class NetworkDetails extends Component {
-  
-  _renderContent = (entry) => {
-    if (entry) {
-      const { method, request, response } = entry;
-      return <ReactJson name="grpc" enableClipboard={false} src={ { method, request, response } } /> 
-    }
-  }
-  
   render() {
     const { entry } = this.props;
     return (
@@ -19,6 +12,12 @@ class NetworkDetails extends Component {
         {this._renderContent(entry)}
       </div>
     );
+  }
+  _renderContent = (entry) => {
+    if (entry) {
+      const { method, request, response } = entry;
+      return <ReactJson name="grpc" enableClipboard={false} src={ { method, request, response } } /> 
+    }
   }
 }
 
