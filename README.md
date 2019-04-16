@@ -1,16 +1,24 @@
 # gRPC-Web Dev Tools
 
-## Example 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Dep:
+> Under Development
 
-* protoc-gen-go
-* protoc-gen-grpc-web
-* python3 3.7
-* g++
-* node.js
-* Go
+![gRPC-Web Dev Tools](screenshots/dev_tools.png)
+
+## Installation
+
+### Chrome
+
+  1. build it with `make build`
+  1. open the **Extension Management** page by navigating to `chrome://extensions`.
+  1. enable **Developer Mode** by clicking the toggle switch next to "Developer mode".
+  1. Click the **LOAD UNPACKED** button and select the extension `./build` directory.
+
+## Usage
 
 
-go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+
+
+<!-- go get -u github.com/golang/protobuf/{proto,protoc-gen-go} -->
 

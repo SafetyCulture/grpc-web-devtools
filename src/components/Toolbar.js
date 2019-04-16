@@ -7,7 +7,6 @@ import './Toolbar.css';
 
 class Toolbar extends Component {
   render() {
-    const { networkLog } = this.props;
     return (
       <div className="toolbar">
         <div className="toolbar-shadow">
@@ -18,14 +17,14 @@ class Toolbar extends Component {
   }
 }
 
-class ToolbarButton extends Component {
-  render() {
-    return (
-      <button className="toolbar-button toolbar-item" {...this.props}>
-        X
-      </button>
-    );
-  }
-}
+// class ToolbarButton extends Component {
+//   render() {
+//     return (
+//       <button className="toolbar-button toolbar-item" {...this.props}>
+//         X
+//       </button>
+//     );
+//   }
+// }
 
 export default Toolbar;

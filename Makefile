@@ -8,7 +8,7 @@ run:
 
 example-build-frontend:
 	protoc -I./example --js_out=import_style=commonjs:example/client \
-		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:example/client \
+		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:example/client example/*.proto
 
 example-build-backend:
 	protoc -I./example --go_out=plugins=grpc:example/server example/*.proto
