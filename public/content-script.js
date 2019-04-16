@@ -1,5 +1,13 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
+let s = document.createElement('script');
+s.type = 'text/javascript';
+s.src = chrome.extension.getURL('inject.js');
+s.onload = function () {
+  this.parentNode.removeChild(this);
+};
+(document.head || document.documentElement).appendChild(s);
+
 var port;
 
 function setupPortIfNeeded() {

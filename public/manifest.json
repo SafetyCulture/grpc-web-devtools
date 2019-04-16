@@ -17,7 +17,14 @@
       ],
       "js": [
         "content-script.js"
-      ]
+      ],
+      "run_at": "document_start"
     }
+  ],
+  "web_accessible_resources": [
+    "inject.js"
+  ],
+  "permissions": [
+    "<all_urls>"
   ]
 }

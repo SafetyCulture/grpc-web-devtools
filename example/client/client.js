@@ -6,38 +6,7 @@ import { ExampleServicePromiseClient } from './example_grpc_web_pb';
 import { ExampleOneRequest } from './example_pb';
 
 const __DEV__ = true;
-
-// TODO: This should be in a npm package
-const enableDevTools = function (clients) {
-  if (clients.constructor !== Array) {
-    return
-  }
-
-  clients.map(clients => {
-    client.client_.rpcCall2 = function (method, request, metadata, methodInfo, callback) {
-      var newCallback = function (err, response) {
-        window.postMessage({
-          type: "__GRPCWEB_DEVTOOLS__",
-          method,
-          request: request.toObject(),
-          response: err ? null : response.toObject(),
-          error: err,
-        }, "*")
-        callback(err, response)
-      }
-      return this.rpcCall(method, request, metadata, methodInfo, newCallback);
-    }
-    client.client_.unaryCall = function (method, request, metadata, methodInfo) {
-      return new Promise((resolve, reject) => {
-        this.rpcCall2(method, request, metadata, methodInfo, function (error, response) {
-          error ? reject(error) : resolve(response);
-        });
-      });
-    };
-  })
-}
-
-
+const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || function () { };
 
 var body = document.getElementsByTagName('body')
 var client = new ExampleServicePromiseClient('http://0.0.0.0:18080', null, null);
