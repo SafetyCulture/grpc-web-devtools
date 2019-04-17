@@ -24,3 +24,11 @@
 .shadow-split-widget-main {
   flex: auto;
 }
+
+.gutter {
+  cursor: ew-resize;
+  border-left: var(--divider-border);
+  margin-left: -1px;
+  margin-right: -4px;
+  z-index: 9999;
+}
