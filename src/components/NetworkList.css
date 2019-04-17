@@ -57,6 +57,10 @@
   background-color: var(--selection-bg-color);
 }
 
+.data-grid table.data tr.error {
+  color:rgb(216, 0, 0);
+}
+
 .data-grid td {
   height: 21px;
   vertical-align: middle;

@@ -33,12 +33,8 @@ function exampleTwo() {
 }
 
 function alwaysError() {
-  const req = new ExampleOneRequest();
-  client.alwaysError(req).then(res => {
-    document.body.innerHTML += `<div>${res.getMsg()}</div>`
-  }).catch(console.error)
+  client.alwaysError(new ExampleOneRequest()).catch(()=>{})
 }
-
 
 exampleOne()
 setInterval(exampleOne, 8000)

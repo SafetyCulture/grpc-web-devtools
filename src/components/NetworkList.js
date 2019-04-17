@@ -31,7 +31,7 @@ class NetworkList extends Component {
                       key={idx}
                       onClick={() => selectLogEntry(idx)}
                       title={req.method}
-                      className={idx === network.selectedIdx ? "selected" : ""}
+                      className={`${idx === network.selectedIdx ? "selected" : ""} ${req.error ? "error" : ""}`}
                     >
                       <td>{req.endpoint}</td>
                     </tr>
