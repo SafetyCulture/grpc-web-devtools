@@ -199,5 +199,60 @@ proto.s12.example.ExampleServicePromiseClient.prototype.exampleTwo =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.s12.example.ExampleOneRequest,
+ *   !proto.s12.example.ExampleOneResponse>}
+ */
+const methodInfo_ExampleService_AlwaysError = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.s12.example.ExampleOneResponse,
+  /** @param {!proto.s12.example.ExampleOneRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ExampleOneResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.s12.example.ExampleOneRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.s12.example.ExampleOneResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.s12.example.ExampleOneResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.s12.example.ExampleServiceClient.prototype.alwaysError =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/s12.example.ExampleService/AlwaysError',
+      request,
+      metadata || {},
+      methodInfo_ExampleService_AlwaysError,
+      callback);
+};
+
+
+/**
+ * @param {!proto.s12.example.ExampleOneRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.s12.example.ExampleOneResponse>}
+ *     A native promise that resolves to the response
+ */
+proto.s12.example.ExampleServicePromiseClient.prototype.alwaysError =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/s12.example.ExampleService/AlwaysError',
+      request,
+      metadata || {},
+      methodInfo_ExampleService_AlwaysError);
+};
+
+
 module.exports = proto.s12.example;
 

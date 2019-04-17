@@ -32,6 +32,11 @@ function exampleTwo() {
   }).catch(console.error)
 }
 
+function alwaysError() {
+  client.alwaysError(new ExampleOneRequest()).catch(()=>{})
+}
+
 exampleOne()
 setInterval(exampleOne, 8000)
 setInterval(exampleTwo, 10000)
+setInterval(alwaysError, 15000)

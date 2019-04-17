@@ -9,6 +9,7 @@ option go_package = "main";
 service ExampleService {
     rpc ExampleOne(ExampleOneRequest) returns (ExampleOneResponse);
     rpc ExampleTwo(ExampleTwoRequest) returns (ExampleTwoResponse);
+    rpc AlwaysError(ExampleOneRequest) returns (ExampleOneResponse);
 }
 
 message ExampleOneRequest {

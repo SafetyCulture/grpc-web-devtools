@@ -5,14 +5,18 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
     }
     clients.map(client => {
         client.client_.rpcCall2 = function (method, request, metadata, methodInfo, callback) {
+            var posted = false;
             var newCallback = function (err, response) {
-                window.postMessage({
-                    type: "__GRPCWEB_DEVTOOLS__",
-                    method,
-                    request: request.toObject(),
-                    response: err ? null : response.toObject(),
-                    error: err,
-                }, "*")
+                if (!posted) {
+                    window.postMessage({
+                        type: "__GRPCWEB_DEVTOOLS__",
+                        method,
+                        request: request.toObject(),
+                        response: err ? null : response.toObject(),
+                        error: err,
+                    }, "*")
+                    posted = true;
+                }
                 callback(err, response)
             }
             return this.rpcCall(method, request, metadata, methodInfo, newCallback);

@@ -15,11 +15,11 @@ class NetworkDetails extends Component {
   }
   _renderContent = (entry) => {
     if (entry) {
-      const { method, request, response } = entry;
-      return <ReactJson name="grpc" enableClipboard={false} src={ { method, request, response } } /> 
+      const { method, request, response, error } = entry;
+      return <ReactJson name="grpc" enableClipboard={false} src={ { method, request, response, error } } /> 
     }
   }
 }
 
-const mapStateToProps = state => ({ entry: state.network.selectedEntry})
+const mapStateToProps = state => ({ entry: state.network.selectedEntry })
 export default connect(mapStateToProps)(NetworkDetails)

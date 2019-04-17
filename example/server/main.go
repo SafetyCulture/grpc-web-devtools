@@ -3,12 +3,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"math/rand"
 	"net"
 	"time"
 
-	context "golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"google.golang.org/grpc"
 )
 
@@ -24,11 +28,17 @@ func (s *server) ExampleOne(_ context.Context, req *ExampleOneRequest) (*Example
 		Msg: req.Msg,
 	}, nil
 }
+
 func (s *server) ExampleTwo(context.Context, *ExampleTwoRequest) (*ExampleTwoResponse, error) {
 	return &ExampleTwoResponse{
 		Id:  int32(time.Now().Unix()),
 		Msg: "Example Two",
 	}, nil
+}
+
+func (s *server) AlwaysError(context.Context, *ExampleOneRequest) (*ExampleOneResponse, error) {
+	code := codes.Code(rand.Int31n(15) + 1)
+	return nil, status.Error(code, "an error ocurred")
 }
 
 func main() {
