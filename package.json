@@ -8,6 +8,7 @@
     "react-json-view": "^1.19.1",
     "react-redux": "^7.0.2",
     "react-scripts": "2.1.8",
+    "react-split": "^2.0.4",
     "redux-starter-kit": "^0.4.3"
   },
   "scripts": {

@@ -27,7 +27,7 @@ class NetworkList extends Component {
               <table className="data">
                 <tbody>
                   {network.log.map((req, idx) => (
-                    <tr 
+                    <tr
                       key={idx}
                       onClick={() => selectLogEntry(idx)}
                       title={req.method}

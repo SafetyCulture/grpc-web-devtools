@@ -6868,7 +6868,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.7, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   dependencies:
@@ -7166,6 +7166,14 @@ react-scripts@2.1.8:
     workbox-webpack-plugin "3.6.3"
   optionalDependencies:
     fsevents "1.2.4"
+
+react-split@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-split/-/react-split-2.0.4.tgz#db45ec5dfa9e34a3d17e894b9c48dfa8f4239ac3"
+  integrity sha512-NBKm9MaqzG/00laMUaS8GS9RnItVSekNNwItgGLMbFTeUa9w4bIY8Co/LszNBnpza9n2am0MXIw3SmyiMnhs+w==
+  dependencies:
+    prop-types "^15.5.7"
+    split.js "^1.5.9"
 
 react-textarea-autosize@^6.1.0:
   version "6.1.0"
@@ -7948,6 +7956,11 @@ split-string@^3.0.1, split-string@^3.0.2:
   resolved "https://registry.yarnpkg.com/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
   dependencies:
     extend-shallow "^3.0.0"
+
+split.js@^1.5.9:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/split.js/-/split.js-1.5.10.tgz#11f63a7ea21780a6022e6dffe8f8eaa18c9c819e"
+  integrity sha512-/J52X5c4ZypVwu4WAhD8E1T9uXQtNokvG6mIBHauzyA1aKH6bmETVSv3RPjBXEz6Gcc4mIThgmjGQL39LD16jQ==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
