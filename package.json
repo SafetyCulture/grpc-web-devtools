@@ -1,7 +1,12 @@
 {
   "name": "grpc-web-devtools",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "author": "SafetyCulture",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SafetyCulture/grpc-web-devtools"
+  },
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
