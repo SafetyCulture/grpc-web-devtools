@@ -6,19 +6,18 @@ import { Provider } from 'react-redux';
 import { configureStore } from 'redux-starter-kit';
 import App from './App';
 import './index.css';
-import networkReducer, { networkLog } from './state/network';
+import networkReducer, { networkLog, clearLog } from './state/network';
 
-
-
-var port
+var port, tabId
 // Setup port for communication with the background script
 if (chrome) {
   try {
+    tabId = chrome.devtools.inspectedWindow.tabId;
     port = chrome.runtime.connect(null, { name: "panel" });
-    const tabId = chrome.devtools.inspectedWindow.tabId;
-    // Sent initialization message.
     port.postMessage({ tabId, action: "init" });
     port.onMessage.addListener(_onMessageRecived);
+    chrome.tabs.onUpdated.addListener(_onTabUpdated);
+
   } catch (error) {
     console.warn("not running app in chrome extension panel")
   }
@@ -32,7 +31,13 @@ const store = configureStore({
 
 function _onMessageRecived({ action, data }) {
   if (action === "gRPCNetworkCall") {
-    store.dispatch(networkLog(data))
+    store.dispatch(networkLog(data));
+  }
+}
+
+function _onTabUpdated(tId, { status }) {
+  if (tId === tabId && status === "loading") {
+    store.dispatch(clearLog());
   }
 }
 

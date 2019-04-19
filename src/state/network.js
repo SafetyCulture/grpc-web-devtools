@@ -3,6 +3,7 @@ import { createSlice } from "redux-starter-kit";
 const networkSlice = createSlice({
     slice: 'network',
     initialState: {
+        preserveLog: false,
         selectedIdx: null,
         selectedEntry: null,
         log: [],
@@ -23,11 +24,24 @@ const networkSlice = createSlice({
                 state.selectedIdx = idx;
                 state.selectedEntry = entry;
             }
-        }
+        },
+        clearLog(state, action) {
+            const { payload: { force } = {} } = action;
+            if (state.preserveLog && !force) {
+                return;
+            }
+            state.selectedIdx = null;
+            state.selectedEntry = null;
+            state.log = [];
+        },
+        setPreserveLog(state, action) {
+            const { payload } = action;
+            state.preserveLog = payload;
+        },
     }
 });
 
 const { actions, reducer } = networkSlice;
-export const { networkLog, selectLogEntry } = actions;
+export const { networkLog, selectLogEntry, clearLog, setPreserveLog } = actions;
 
 export default reducer

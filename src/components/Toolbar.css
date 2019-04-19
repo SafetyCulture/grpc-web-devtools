@@ -4,6 +4,7 @@
   border-bottom: var(--divider-border);
   flex: none;
   padding: 0 2px;
+  user-select: none;
 }
 
 .toolbar-shadow {
@@ -29,6 +30,14 @@
   height: 26px;
   border: none;
   white-space: pre;
+}
+
+.toolbar-item.checkbox {
+  padding: 0 5px 0 2px;
+}
+
+.toolbar-item.checkbox:hover {
+  color: #333;
 }
 
 :focus {
