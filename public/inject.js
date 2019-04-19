@@ -4,6 +4,7 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
         return
     }
     clients.map(client => {
+        client.client_.rpcCall_ = client.client_.rpcCall;
         client.client_.rpcCall2 = function (method, request, metadata, methodInfo, callback) {
             var posted = false;
             var newCallback = function (err, response) {
@@ -19,8 +20,9 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
                 }
                 callback(err, response)
             }
-            return this.rpcCall(method, request, metadata, methodInfo, newCallback);
+            return this.rpcCall_(method, request, metadata, methodInfo, newCallback);
         }
+        client.client_.rpcCall = client.client_.rpcCall2;
         client.client_.unaryCall = function (method, request, metadata, methodInfo) {
             return new Promise((resolve, reject) => {
                 this.rpcCall2(method, request, metadata, methodInfo, function (error, response) {
