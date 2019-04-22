@@ -51,3 +51,18 @@
   background: transparent;
   border-radius: 0;
 }
+
+.toolbar-divider {
+  background-color: #ccc;
+  width: 1px;
+  margin: 5px 4px;
+  height: 16px;
+}
+
+.toolbar-button svg {
+  fill: rgb(110, 110, 110);
+}
+
+.toolbar-button:hover:not(:active) svg {
+  fill: #333;
+}
