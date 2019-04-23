@@ -16,6 +16,7 @@ function setupPortIfNeeded() {
     port.postMessage({ action: "init" });
     port.onDisconnect.addListener(() => {
       port = null;
+      window.removeEventListener("message", handleMessageEvent, false);
     });
   }
 }
@@ -31,9 +32,11 @@ function sendGRPCNetworkCall(data) {
   }
 }
 
-window.addEventListener("message", function (event) {
+function handleMessageEvent(event) {
   if (event.source != window) return;
   if (event.data.type && event.data.type == "__GRPCWEB_DEVTOOLS__") {
     sendGRPCNetworkCall(event.data);
   }
-}, false)
+}
+
+window.addEventListener("message", handleMessageEvent, false);
