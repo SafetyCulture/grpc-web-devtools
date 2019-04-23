@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setPreserveLog } from '../state/network';
+import { setPreserveLog, clearLog } from '../state/network';
 import ClearIcon from '../icons/Clear';
 import './Toolbar.css';
 
@@ -10,11 +10,11 @@ import './Toolbar.css';
 
 class Toolbar extends Component {
   render() {
-    const { preserveLog } = this.props;
+    const { preserveLog, clearLog } = this.props;
     return (
       <div className="toolbar">
         <div className="toolbar-shadow">
-          <ToolbarButton title="Clear" onClick={() => { }} >
+          <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })} >
             <ClearIcon />
           </ToolbarButton>
           <ToolbarDivider />
@@ -58,5 +58,5 @@ class ToolbarButton extends Component {
 }
 
 const mapStateToProps = state => ({ preserveLog: state.network.preserveLog });
-const mapDispatchToProps = { setPreserveLog };
+const mapDispatchToProps = { setPreserveLog, clearLog };
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
