@@ -7,7 +7,7 @@
   position: relative;
   line-height: 120%;
   border: none;
-    flex: auto;
+  flex: auto;
 }
 
 .data-grid table {

@@ -53,6 +53,9 @@ code {
   --divider-color: #d0d0d0;
   --selection-bg-color: var(--accent-color);
   --selection-fg-color: white;
+  --focus-ring-inactive-shadow: 0 0 0 1px #e0e0e0;
+  --focus-ring-active-shadow: 0 0 0 1px var(--accent-color);
+  --enabled-color: #d80000;
 }
 
 .flex-auto {
