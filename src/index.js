@@ -7,6 +7,7 @@ import { configureStore } from 'redux-starter-kit';
 import App from './App';
 import './index.css';
 import networkReducer, { networkLog, clearLog } from './state/network';
+import toolbarReducer from './state/toolbar';
 
 var port, tabId
 // Setup port for communication with the background script
@@ -26,6 +27,7 @@ if (chrome) {
 const store = configureStore({
   reducer: {
     network: networkReducer,
+    toolbar: toolbarReducer,
   }
 });
 

@@ -40,6 +40,30 @@
   color: #333;
 }
 
+.toolbar-item.text {
+  margin: 0 3px;
+}
+
+.toolbar-item.text input {
+  padding-left: 3px;
+  width: 163px;
+  height: 18px;
+  line-height: 20px;
+  display: inline-block;
+  background: #FFF;
+  overflow-x: visible;
+  white-space: nowrap;
+  border: none;
+}
+
+.toolbar-item.text input:hover {
+  box-shadow: var(--focus-ring-inactive-shadow);
+}
+
+.toolbar-item.text input:focus {
+  box-shadow: var(--focus-ring-active-shadow);
+}
+
 :focus {
   outline-width: 0;
 }
@@ -65,4 +89,12 @@
 
 .toolbar-button:hover:not(:active) svg {
   fill: #333;
+}
+
+.toolbar-button.open svg {
+  fill: var(--accent-color) !important;
+}
+
+.toolbar-button.enabled svg {
+  fill: var(--enabled-color) !important;
 }
