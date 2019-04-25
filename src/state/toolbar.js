@@ -1,9 +1,11 @@
+// Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
+
 import { createSlice } from "redux-starter-kit";
 
 const toolbarSlice = createSlice({
   slice: 'toolbar',
   initialState: {
-    filterIsOpen: false,
+    filterIsOpen: true,
     filterIsEnabled: false,
     filterValue: "",
   },
@@ -14,7 +16,6 @@ const toolbarSlice = createSlice({
     setFilterValue(state, action) {
       const { payload } = action;
       state.filterValue = payload;
-      console.log(state.filterValue);
       state.filterIsEnabled = !!(state.filterValue && state.filterValue.length > 0);
     }
   },
