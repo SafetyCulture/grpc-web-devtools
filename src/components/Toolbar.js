@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setPreserveLog, clearLog } from '../state/network';
 import ClearIcon from '../icons/Clear';
+import FilterIcon from '../icons/Filter';
 import './Toolbar.css';
 
 
@@ -16,6 +17,9 @@ class Toolbar extends Component {
         <div className="toolbar-shadow">
           <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })} >
             <ClearIcon />
+          </ToolbarButton>
+          <ToolbarButton title="Filter" onClick={() => { }} >
+            <FilterIcon />
           </ToolbarButton>
           <ToolbarDivider />
           <span className="toolbar-item checkbox" title="Do not clear log on page reload / navigation">
