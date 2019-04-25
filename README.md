@@ -2,7 +2,6 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-> Under Development
 
 ![gRPC-Web Dev Tools](screenshots/dev_tools.png)
 
