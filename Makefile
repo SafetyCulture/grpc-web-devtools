@@ -6,6 +6,9 @@ build:
 run:
 	yarn && yarn start
 
+package: build
+	zip -r grpc-web-devtools.zip build
+
 example-build-frontend:
 	protoc -I./example --js_out=import_style=commonjs:example/client \
 		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:example/client example/*.proto
