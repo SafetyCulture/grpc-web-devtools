@@ -9,6 +9,10 @@
 
 ### Chrome
 
+Via the [Chrome Web Store](https://chrome.google.com/webstore/detail/grpc-web-developer-tools/ddamlpimmiapbcopeoifjfmoabdbfbjj) (recommended)
+
+or
+
   1. build it with `make build`
   1. open the **Extension Management** page by navigating to `chrome://extensions`.
   1. enable **Developer Mode** by clicking the toggle switch next to "Developer mode".
