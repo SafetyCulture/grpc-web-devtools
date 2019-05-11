@@ -13,6 +13,9 @@ node_modules
 
 # production
 /build
+build.crx
+build.pem
+grpc-web-devtools.zip
 
 # C++
 *.o
