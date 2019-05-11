@@ -31,6 +31,6 @@
     "inject.js"
   ],
   "permissions": [
-    "<all_urls>"
+    "activeTab"
   ]
 }
