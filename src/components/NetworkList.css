@@ -71,6 +71,13 @@
   padding: 1px 4px;
 }
 
+.data-grid td svg {
+  vertical-align: middle;
+  fill:rgba(0, 0, 0, 0.2);
+  margin-right: 4px;
+  width: 10px;
+}
+
 .data-grid .data-container {
   top: 27px;
   bottom: 0;

@@ -20,7 +20,26 @@ const networkSlice = createSlice({
     preserveLog: false,
     selectedIdx: null,
     selectedEntry: null,
-    log: [],
+    log: [{
+      endpoint: "Unary",
+      methodType: "unary",
+    },
+    {
+      endpoint: "Streaming Req",
+      methodType: "server_streaming",
+      request: {},
+    },
+    {
+      endpoint: "Streaming Res",
+      methodType: "server_streaming",
+      response: {},
+    },
+    {
+      endpoint: "Streaming Error",
+      methodType: "server_streaming",
+      error: {},
+    }
+    ],
     _filterValue: '',
     _logBak: [],
   },

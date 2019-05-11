@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MethodIcon from './MethodIcon';
 import { selectLogEntry } from '../state/network';
 import './NetworkList.css';
 
@@ -33,7 +34,10 @@ class NetworkList extends Component {
                       title={req.method}
                       className={`${idx === network.selectedIdx ? "selected" : ""} ${req.error ? "error" : ""}`}
                     >
-                      <td>{req.endpoint}</td>
+                      <td>
+                        <MethodIcon methodType={req.methodType} isRequest={!!req.request} />
+                        {req.endpoint}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
