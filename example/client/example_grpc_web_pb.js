@@ -254,5 +254,55 @@ proto.s12.example.ExampleServicePromiseClient.prototype.alwaysError =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.s12.example.StreamRequest,
+ *   !proto.s12.example.ServerTime>}
+ */
+const methodInfo_ExampleService_StreamingExample = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.s12.example.ServerTime,
+  /** @param {!proto.s12.example.StreamRequest} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ServerTime.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.s12.example.StreamRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.s12.example.ServerTime>}
+ *     The XHR Node Readable Stream
+ */
+proto.s12.example.ExampleServiceClient.prototype.streamingExample =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/s12.example.ExampleService/StreamingExample',
+      request,
+      metadata || {},
+      methodInfo_ExampleService_StreamingExample);
+};
+
+
+/**
+ * @param {!proto.s12.example.StreamRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.s12.example.ServerTime>}
+ *     The XHR Node Readable Stream
+ */
+proto.s12.example.ExampleServicePromiseClient.prototype.streamingExample =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/s12.example.ExampleService/StreamingExample',
+      request,
+      metadata || {},
+      methodInfo_ExampleService_StreamingExample);
+};
+
+
 module.exports = proto.s12.example;
 
