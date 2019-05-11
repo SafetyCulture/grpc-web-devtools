@@ -10,6 +10,7 @@ service ExampleService {
     rpc ExampleOne(ExampleOneRequest) returns (ExampleOneResponse);
     rpc ExampleTwo(ExampleTwoRequest) returns (ExampleTwoResponse);
     rpc AlwaysError(ExampleOneRequest) returns (ExampleOneResponse);
+    rpc StreamingExample(StreamRequest) returns (stream ServerTime);
 }
 
 message ExampleOneRequest {
@@ -19,4 +20,12 @@ message ExampleOneRequest {
 message ExampleOneResponse {
     string id = 1;
     string msg = 2;
+}
+
+message StreamRequest {
+  bool error = 1;
+}
+
+message ServerTime {
+  string time = 1;
 }

@@ -3,7 +3,7 @@
 import Sentencer from 'sentencer';
 import { ExampleTwoRequest } from './example2_pb';
 import { ExampleServicePromiseClient, ExampleServiceClient } from './example_grpc_web_pb';
-import { ExampleOneRequest } from './example_pb';
+import { ExampleOneRequest, StreamRequest } from './example_pb';
 
 const __DEV__ = true;
 const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || (() => { });
@@ -23,7 +23,7 @@ function exampleOne() {
   const req = new ExampleOneRequest();
   req.setMsg(Sentencer.make("This is {{ an_adjective }} {{ noun }}."));
   client.exampleOne(req).then(res => {
-    document.body.innerHTML += `<div>${res.getMsg()}</div>`
+    document.body.innerHTML += `<div>${res.getMsg()}</div>`;
   }).catch(console.error)
 }
 
@@ -33,7 +33,7 @@ function exampleTwo() {
     if (err) {
       return console.error(err);
     }
-    document.body.innerHTML += `<div>${res.getMsg()}</div>`
+    document.body.innerHTML += `<div>${res.getMsg()}</div>`;
   })
 }
 
@@ -41,7 +41,18 @@ function alwaysError() {
   client.alwaysError(new ExampleOneRequest()).catch(() => { })
 }
 
+function exampleStream(isErr) {
+  var req = new StreamRequest();
+  req.setError(isErr);
+  const stream = client.streamingExample(req);
+  stream.on('data', res => {
+    document.body.innerHTML += `<div>${res.getTime()}</div>`;
+  })
+}
+
 exampleOne()
+exampleStream()
+exampleStream(true)
 setInterval(exampleOne, 8000)
 setInterval(exampleTwo, 10000)
 setInterval(alwaysError, 15000)
