@@ -9,10 +9,10 @@ class MethodIcon extends Component {
   render() {
     const { methodType, isRequest } = this.props;
     var IconClass;
-    if (methodType == 'server_streaming') {
+    if (methodType === 'server_streaming') {
       IconClass = isRequest ? UpIcon : DownIcon;
     }
-    if (methodType == 'unary') {
+    if (methodType === 'unary') {
       IconClass = UpDownIcon;
     }
     return <IconClass />

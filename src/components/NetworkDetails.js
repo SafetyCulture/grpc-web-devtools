@@ -17,7 +17,11 @@ class NetworkDetails extends Component {
   _renderContent = (entry) => {
     if (entry) {
       const { method, request, response, error } = entry;
-      return <ReactJson name="grpc" enableClipboard={false} src={{ method, request, response, error }} />
+      var src = { method };
+      if (request) src.request = request;
+      if (response) src.response = response;
+      if (error) src.error = error;
+      return <ReactJson name="grpc" enableClipboard={false} src={src} />
     }
   }
 }
