@@ -2,7 +2,7 @@
 
 import Sentencer from 'sentencer';
 import { ExampleTwoRequest } from './example2_pb';
-import { ExampleServicePromiseClient, ExampleServiceClient } from './example_grpc_web_pb';
+import { ExampleServiceClient, ExampleServicePromiseClient } from './example_grpc_web_pb';
 import { ExampleOneRequest, StreamRequest } from './example_pb';
 
 const __DEV__ = true;
@@ -52,8 +52,17 @@ function exampleStream(isErr) {
   stream.on('error', console.log);
 }
 
+function exampleStreamChain() {
+  client.streamingExample(new StreamRequest())
+    .on('data', res => {
+      document.body.innerHTML += `<div>${res.getTime()}</div>`;
+    })
+    .on('status', console.warn)
+    .on('error', console.error);
+}
+
 exampleOne()
-exampleStream()
+exampleStreamChain()
 exampleStream(true)
 setInterval(exampleOne, 8000)
 setInterval(exampleTwo, 10000)

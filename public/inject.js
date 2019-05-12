@@ -56,6 +56,7 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
   }
   StreamInterceptor.prototype.on = function (type, callback) {
     this._callbacks[type] = callback;
+    return this;
   }
   clients.map(client => {
     client.client_.rpcCall_ = client.client_.rpcCall;
