@@ -2,13 +2,15 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MethodIcon from './MethodIcon';
-import { selectLogEntry } from '../state/network';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List } from 'react-window';
+import NetworkListRow from './NetworkListRow';
+
 import './NetworkList.css';
 
 class NetworkList extends Component {
   render() {
-    const { network, selectLogEntry } = this.props;
+    const { network } = this.props;
     return (
       <div className="widget vbox network-list">
         <div className="widget vbox">
@@ -25,23 +27,20 @@ class NetworkList extends Component {
               </table>
             </div>
             <div className="data-container">
-              <table className="data">
-                <tbody>
-                  {network.log.map((req, idx) => (
-                    <tr
-                      key={idx}
-                      onClick={() => selectLogEntry(idx)}
-                      title={req.method}
-                      className={`${idx === network.selectedIdx ? "selected" : ""} ${req.error ? "error" : ""}`}
-                    >
-                      <td>
-                        <MethodIcon methodType={req.methodType} isRequest={!!req.request} />
-                        {req.endpoint}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <AutoSizer disableWidth>
+                {({ height }) => (
+                  <List
+                    className="data"
+                    itemCount={network.log.length}
+                    height={height}
+                    itemSize={21}
+                    itemData={network.log}
+                    overscanCount={50}
+                  >
+                    {NetworkListRow}
+                  </List>
+                )}
+              </AutoSizer>
             </div>
           </div>
         </div>
@@ -51,5 +50,4 @@ class NetworkList extends Component {
 }
 
 const mapStateToProps = state => ({ network: state.network })
-const mapDispatchToProps = { selectLogEntry };
-export default connect(mapStateToProps, mapDispatchToProps)(NetworkList)
+export default connect(mapStateToProps)(NetworkList)
