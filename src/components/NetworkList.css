@@ -38,30 +38,25 @@
   padding: 1px 4px;
 }
 
-.data-grid table.data tr {
-  height: 20px;
-  display: table-row;
-  cursor: pointer;
-}
-
-.data-grid table.data tr:nth-child(odd) {
+.data-grid .data .data-row.odd {
   background-color: rgb(245, 245, 245);
 }
 
-.data-grid table.data tr:hover {
+.data-grid .data .data-row:hover {
   background-color: rgb(241, 246, 253);
 }
 
-.data-grid table.data tr.selected {
+.data-grid .data .data-row.selected {
   color: var(--selection-fg-color);
   background-color: var(--selection-bg-color);
 }
 
-.data-grid table.data tr.error {
+.data-grid .data .data-row.error {
   color:rgb(216, 0, 0);
 }
 
-.data-grid td {
+.data-grid .data-row {
+  cursor: pointer;
   height: 21px;
   vertical-align: middle;
   white-space: nowrap;
@@ -71,7 +66,7 @@
   padding: 1px 4px;
 }
 
-.data-grid td svg {
+.data-grid .data-row svg {
   vertical-align: middle;
   fill:rgba(0, 0, 0, 0.2);
   margin-right: 4px;
@@ -89,7 +84,7 @@
   overflow-x: hidden;
 }
 
-.data-grid table.data {
+.data-grid .data {
   position: absolute;
   left: 0;
   top: 0;

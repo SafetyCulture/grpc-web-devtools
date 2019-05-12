@@ -47,7 +47,9 @@ function exampleStream(isErr) {
   const stream = client.streamingExample(req);
   stream.on('data', res => {
     document.body.innerHTML += `<div>${res.getTime()}</div>`;
-  })
+  });
+  stream.on('status', console.log);
+  stream.on('error', console.log);
 }
 
 exampleOne()
