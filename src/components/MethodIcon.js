@@ -1,9 +1,9 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
 import React, { Component } from 'react';
-import UpDownIcon from '../icons/UpDown';
-import UpIcon from '../icons/Up';
 import DownIcon from '../icons/Down';
+import UpIcon from '../icons/Up';
+import UpDownIcon from '../icons/UpDown';
 
 class MethodIcon extends Component {
   render() {
@@ -15,7 +15,8 @@ class MethodIcon extends Component {
     if (methodType === 'unary') {
       IconClass = UpDownIcon;
     }
-    return <IconClass />
+
+    return IconClass ? <IconClass /> : null;
   }
 }
 
