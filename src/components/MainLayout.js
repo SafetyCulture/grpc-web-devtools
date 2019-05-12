@@ -1,36 +1,46 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
 import React, { Component } from 'react';
-import Split from 'react-split'
+import { connect } from 'react-redux';
+import Split from 'react-split';
 import './MainLayout.css';
 import NetworkDetails from './NetworkDetails';
+import NetworkEmpty from './NetworkEmpty';
 import NetworkList from './NetworkList';
 class MainLayout extends Component {
+
+  _renderContent() {
+    const { isEmpty } = this.props;
+    if (isEmpty) {
+      return <NetworkEmpty />;
+    }
+
+    return (
+      <Split
+        className="hbox flex-auto"
+        sizes={[30, 70]}
+        gutterSize={5}
+        cursor="ew-resize"
+      >
+        <NetworkList />
+        <NetworkDetails />
+      </Split>
+    );
+
+  }
+
   render() {
+
+
     return (
       <div className="vbox flex-auto">
         <div className="shadow-split-widget hbox widget">
-          <Split
-            className="hbox flex-auto"
-            sizes={[30, 70]}
-            gutterSize={5}
-            cursor="ew-resize"
-          >
-            <NetworkList />
-            <NetworkDetails />
-          </Split>
+          {this._renderContent()}
         </div>
       </div>
     );
   }
 }
 
-export default MainLayout
-
-
-// <div className="shadow-split-widget-contents shadow-split-widget-sidebar vbox">
-//             <NetworkList />
-//           </div>
-//           <div className="shadow-split-widget-contents shadow-split-widget-main">
-//             <NetworkDetails />
-//           </div>
+const mapStateToProps = state => ({ isEmpty: state.network.log.length === 0 })
+export default connect(mapStateToProps)(MainLayout)

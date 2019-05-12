@@ -1,0 +1,14 @@
+.network-empty {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.network-empty .content {
+  text-align: center;
+  font-size: 14px;
+  line-height: 28px;
+  margin: auto;
+  color: #777;
+}
