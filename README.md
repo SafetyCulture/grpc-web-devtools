@@ -3,7 +3,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 
-![gRPC-Web Dev Tools](screenshots/dev_tools.png)
+![gRPC-Web Dev Tools](screenshots/chrome_store.png)
 
 ## Installation
 
