@@ -27,6 +27,7 @@ enableDevTools([
   client,
 ]);
 ```
+> NOTE: Requires that your generated client(s) use `protoc-gen-grpc-web` >= 1.0.4
 
 ## Example
  
