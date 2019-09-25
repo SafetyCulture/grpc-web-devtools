@@ -17,7 +17,7 @@ class NetworkEmpty extends PureComponent {
               rel="noopener noreferrer"
               href="https://github.com/SafetyCulture/grpc-web-devtools"
             >
-              Learm more
+              Learn more
           </a>
           </div>
         </div>
