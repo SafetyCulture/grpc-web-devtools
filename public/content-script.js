@@ -55,10 +55,14 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
         this._callbacks['error'](error);
       }
     });
+    this._stream = stream;
   }
   StreamInterceptor.prototype.on = function (type, callback) {
     this._callbacks[type] = callback;
     return this;
+  }
+  StreamInterceptor.prototype.cancel = function () {
+    this._stream.cancel()
   }
   clients.map(client => {
     client.client_.rpcCall_ = client.client_.rpcCall;
