@@ -49,13 +49,51 @@ code {
 :root {
   --accent-color: #1a73e8;
   --toolbar-bg-color: #f3f3f3; 
+  --toolbar-color: #5a5a5a;
+  --toolbar-color-hover: #333;
   --divider-border: 1px solid #d0d0d0;
   --divider-color: #d0d0d0;
   --selection-bg-color: var(--accent-color);
   --selection-fg-color: white;
+  --toolbar-input-text: #000;
+  --toolbar-input-bg: #fff;
   --focus-ring-inactive-shadow: 0 0 0 1px #e0e0e0;
   --focus-ring-active-shadow: 0 0 0 1px var(--accent-color);
   --enabled-color: #d80000;
+  --network-color-text: #777;
+  --network-bg: #fff;
+  --network-row-odd: #f5f5f5;
+  --network-row-hover: #f1f6fd;
+  --network-row-icon-fill: rgba(0, 0, 0, 0.2);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent-color: #0e639c;
+    --toolbar-bg-color: #333333;
+    --toolbar-color: #a5a5a5;
+    --toolbar-color-hover: #ccc;
+    --divider-border: 1px solid #3d3d3d;
+    --toolbar-input-text: #bdc6cf;
+    --toolbar-input-bg: #242424;
+    --focus-ring-inactive-shadow: 0 0 0 1px #5a5a5a;
+    --focus-ring-active-shadow: 0 0 0 1px var(--accent-color);
+    --enabled-color: #ff4d4d;
+    --network-color-text: #888888;
+    --network-bg: #242424;
+    --network-row-odd: #292929;
+    --network-row-hover: #14253fb3;
+    --network-row-icon-fill: rgba(255, 255, 255, 0.8);
+  }
+
+  input[type=checkbox] {
+    filter: invert(80%);
+  }
+
+  a {
+    color: #ababab;
+  }
 }
 
 .flex-auto {

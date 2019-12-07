@@ -19,7 +19,7 @@
 }
 
 .toolbar-item {
-  color: #5a5a5a;
+  color: var(--toolbar-color);
   position: relative;
   display: flex;
   background-color: transparent;
@@ -37,7 +37,7 @@
 }
 
 .toolbar-item.checkbox:hover {
-  color: #333;
+  color: var(--toolbar-color-hover);
 }
 
 .toolbar-item.text {
@@ -50,7 +50,8 @@
   height: 18px;
   line-height: 20px;
   display: inline-block;
-  background: #FFF;
+  color: var(--toolbar-input-text);
+  background: var(--toolbar-input-bg);
   overflow-x: visible;
   white-space: nowrap;
   border: none;
@@ -84,11 +85,11 @@
 }
 
 .toolbar-button svg {
-  fill: rgb(110, 110, 110);
+  fill: var(--toolbar-color);
 }
 
 .toolbar-button:hover:not(:active) svg {
-  fill: #333;
+  fill: var(--toolbar-color-hover);
 }
 
 .toolbar-button.open svg {

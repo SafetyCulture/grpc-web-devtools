@@ -1,5 +1,6 @@
 
 .details-data {
   padding: 4px;
+  background-color:var(--network-bg);
   overflow: scroll;
 }

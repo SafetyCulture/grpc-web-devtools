@@ -1,6 +1,7 @@
 
 .network-list {
   overflow: hidden;
+  background-color:var(--network-bg);
 }
 
 .data-grid {
@@ -27,7 +28,8 @@
 .data-grid th {
   text-align: left;
   background-color: var(--toolbar-bg-color);
-  border-bottom: 1px solid rgb(205, 205, 205);
+  color: var(--toolbar-color);
+  border-bottom: var(--divider-border);
   font-weight: normal;
   vertical-align: middle;
   white-space: nowrap;
@@ -39,11 +41,11 @@
 }
 
 .data-grid .data .data-row.odd {
-  background-color: rgb(245, 245, 245);
+  background-color: var(--network-row-odd);
 }
 
 .data-grid .data .data-row:hover {
-  background-color: rgb(241, 246, 253);
+  background-color: var(--network-row-hover);
 }
 
 .data-grid .data .data-row.selected {
@@ -56,6 +58,7 @@
 }
 
 .data-grid .data-row {
+  color: var(--toolbar-color);
   cursor: pointer;
   height: 21px;
   vertical-align: middle;
@@ -68,7 +71,7 @@
 
 .data-grid .data-row svg {
   vertical-align: middle;
-  fill:rgba(0, 0, 0, 0.2);
+  fill: var(--network-row-icon-fill);
   margin-right: 4px;
   width: 10px;
 }
