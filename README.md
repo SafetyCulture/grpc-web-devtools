@@ -18,6 +18,17 @@ or
   1. enable **Developer Mode** by clicking the toggle switch next to "Developer mode".
   1. Click the **LOAD UNPACKED** button and select the extension `./build` directory.
 
+### Firefox
+
+Via [Firefox Browser Add-Ons](https://addons.mozilla.org/en-US/firefox/addon/grpc-web-developer-tools/)
+
+or
+
+  1. build and package with `make package`
+  1. enter `about:debugging` in the URL bar of Firefox
+  1. click **This Firefox** > **Load Temporary Add-on...**
+  1. select the `grpc-web-devtools.zip` extention file
+
 ## Usage
 
 ```javascript
