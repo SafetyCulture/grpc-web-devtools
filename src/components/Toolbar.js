@@ -11,6 +11,24 @@ import './Toolbar.css';
 
 class Toolbar extends Component {
 
+  _renderButtons() {
+    const { clearLog, toggleFilter, toolbar: { filterIsEnabled, filterIsOpen }} = this.props;
+    return (
+        <>
+          <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })} >
+            <ClearIcon />
+          </ToolbarButton>
+          <ToolbarButton
+            title="Filter"
+            onClick={() => toggleFilter()}
+            className={(filterIsOpen ? "open " : "") + (filterIsEnabled ? "enabled" : "")}
+           >
+             <FilterIcon />
+           </ToolbarButton>
+        </>
+    )
+  }
+
   _renderFilterToolbar() {
     const { filterIsOpen, filterValue } = this.props.toolbar;
     if (filterIsOpen) {
@@ -32,21 +50,12 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { preserveLog, clearLog, toggleFilter, toolbar: { filterIsOpen, filterIsEnabled }, clipboardIsEnabled } = this.props;
+    const { preserveLog, clipboardIsEnabled } = this.props;
     return (
       <>
         <div className="toolbar">
           <div className="toolbar-shadow">
-            <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })} >
-              <ClearIcon />
-            </ToolbarButton>
-            <ToolbarButton
-              title="Filter"
-              onClick={() => toggleFilter()}
-              className={(filterIsOpen ? "open " : "") + (filterIsEnabled ? "enabled" : "")}
-            >
-              <FilterIcon />
-            </ToolbarButton>
+            {this._renderButtons()}           
             <ToolbarDivider />
             <span className="toolbar-item checkbox" title="Do not clear log on page reload / navigation">
               <input
