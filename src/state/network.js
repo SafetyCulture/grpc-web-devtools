@@ -20,7 +20,8 @@ const networkSlice = createSlice({
     preserveLog: false,
     selectedIdx: null,
     selectedEntry: null,
-    log: [],
+    log: [
+    ],
     _filterValue: '',
     _logBak: [],
   },

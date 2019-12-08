@@ -3,7 +3,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 
-![gRPC-Web Dev Tools](screenshots/chrome_store.png)
+![gRPC-Web Dev Tools](screenshots/store_light_dark.png)
+Now supports dark mode.
 
 ## Installation
 

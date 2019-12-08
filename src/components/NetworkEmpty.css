@@ -3,6 +3,7 @@
   align-content: center;
   align-items: center;
   flex: 1;
+  background-color: var(--network-bg);
 }
 
 .network-empty .content {
@@ -10,5 +11,5 @@
   font-size: 14px;
   line-height: 28px;
   margin: auto;
-  color: #777;
+  color: var(--network-color-text);
 }

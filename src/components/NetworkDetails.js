@@ -16,13 +16,22 @@ class NetworkDetails extends Component {
   }
   _renderContent = (entry) => {
     if (entry) {
+      const { clipboardIsEnabled } = this.props;
       const { method, request, response, error } = entry;
+      const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'twilight' : 'rjv-default';
       var src = { method };
       if (request) src.request = request;
       if (response) src.response = response;
       if (error) src.error = error;
-      const { clipboardIsEnabled } = this.props;
-      return <ReactJson name="grpc" enableClipboard={clipboardIsEnabled} src={src} />
+      return (
+          <ReactJson
+            name="grpc"
+            theme={theme}
+            style={{backgroundColor:'transparent'}}
+            enableClipboard={clipboardIsEnabled}
+            src={src}
+          />
+      )
     }
   }
 }
