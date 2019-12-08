@@ -8,6 +8,7 @@ import App from './App';
 import './index.css';
 import networkReducer, { networkLog, clearLog } from './state/network';
 import toolbarReducer from './state/toolbar';
+import clipboardReducer from './state/clipboard';
 
 var port, tabId
 // Setup port for communication with the background script
@@ -28,6 +29,7 @@ const store = configureStore({
   reducer: {
     network: networkReducer,
     toolbar: toolbarReducer,
+    clipboard: clipboardReducer,
   }
 });
 
