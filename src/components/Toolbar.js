@@ -58,7 +58,7 @@ class Toolbar extends Component {
               <label htmlFor="ui-checkbox-preserve-log">Preserve log</label>
             </span>
             <ToolbarDivider />
-            <span className="toolbar-item checkbox" title="Enables clipboard when for network details">
+            <span className="toolbar-item checkbox" title="Enables clipboard for JSON tree (decreases rendering performance)">
               <input
                 type="checkbox"
                 id="ui-checkbox-clipboard-is-enabled"

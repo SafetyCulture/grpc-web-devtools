@@ -3,3 +3,7 @@
   padding: 4px;
   overflow: scroll;
 }
+
+.react-json-view svg {
+    height: 0.9em !important;
+}
