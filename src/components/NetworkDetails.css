@@ -4,3 +4,7 @@
   background-color:var(--network-bg);
   overflow: scroll;
 }
+
+.react-json-view svg {
+    height: 0.9em !important;
+}

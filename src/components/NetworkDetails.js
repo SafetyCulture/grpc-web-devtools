@@ -16,6 +16,7 @@ class NetworkDetails extends Component {
   }
   _renderContent = (entry) => {
     if (entry) {
+      const { clipboardIsEnabled } = this.props;
       const { method, request, response, error } = entry;
       const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'twilight' : 'rjv-default';
       var src = { method };
@@ -27,7 +28,7 @@ class NetworkDetails extends Component {
             name="grpc"
             theme={theme}
             style={{backgroundColor:'transparent'}}
-            enableClipboard={false}
+            enableClipboard={clipboardIsEnabled}
             src={src}
           />
       )
@@ -35,5 +36,5 @@ class NetworkDetails extends Component {
   }
 }
 
-const mapStateToProps = state => ({ entry: state.network.selectedEntry });
+const mapStateToProps = state => ({ entry: state.network.selectedEntry, clipboardIsEnabled: state.clipboard.clipboardIsEnabled });
 export default connect(mapStateToProps)(NetworkDetails);
