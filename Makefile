@@ -7,7 +7,7 @@ run:
 	yarn && yarn start
 
 package: build
-	zip -rj grpc-web-devtools.zip build/*
+	cd build; zip -r ../grpc-web-devtools.zip .
 
 example-build-frontend:
 	protoc -I./example --js_out=import_style=commonjs:example/client \
