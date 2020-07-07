@@ -5,6 +5,13 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
   if (clients.constructor !== Array) {
     return
   }
+  var messageToJs = function (message) {
+    if (message.toObject) {
+      return message.toObject();
+    }
+
+    return message.toJSON();
+  }
   const postType = "__GRPCWEB_DEVTOOLS__";
   var StreamInterceptor = function (method, request, stream) {
     this._callbacks = {};
@@ -13,14 +20,14 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
       type: postType,
       method,
       methodType,
-      request: request.toObject(),
+      request: messageToJs(request),
     });
     stream.on('data', response => {
       window.postMessage({
         type: postType,
         method,
         methodType,
-        response: response.toObject(),
+        response: messageToJs(response),
       });
       if (!!this._callbacks['data']) {
         this._callbacks['data'](response);
@@ -74,8 +81,8 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
             type: postType,
             method,
             methodType: "unary",
-            request: request.toObject(),
-            response: err ? undefined : response.toObject(),
+            request: messageToJs(request),
+            response: err ? undefined : messageToJs(response),
             error: err || undefined,
           }, "*")
           posted = true;
