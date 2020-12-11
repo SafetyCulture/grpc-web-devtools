@@ -113,7 +113,9 @@ s.parentNode.removeChild(s);
 var port;
 
 function setupPortIfNeeded() {
+  // eslint-disable-next-line no-undef
   if (!port && chrome && chrome.runtime) {
+    // eslint-disable-next-line no-undef
     port = chrome.runtime.connect(null, { name: "content" });
     port.postMessage({ action: "init" });
     port.onDisconnect.addListener(() => {
