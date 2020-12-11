@@ -1,8 +1,8 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import { createSlice } from "redux-starter-kit";
 import Fuse from 'fuse.js';
 import { setFilterValue } from "./toolbar";
+import {createSlice} from "@reduxjs/toolkit";
 
 var options = {
   shouldSort: false,
@@ -15,7 +15,7 @@ var options = {
 var fuse = new Fuse(null, options);
 
 const networkSlice = createSlice({
-  slice: 'network',
+  name: 'network',
   initialState: {
     preserveLog: false,
     selectedIdx: null,

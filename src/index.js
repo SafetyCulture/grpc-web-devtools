@@ -3,12 +3,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { configureStore } from 'redux-starter-kit';
 import App from './App';
 import './index.css';
 import networkReducer, { networkLog, clearLog } from './state/network';
 import toolbarReducer from './state/toolbar';
 import clipboardReducer from './state/clipboard';
+import {configureStore} from "@reduxjs/toolkit";
 
 var port, tabId
 // Setup port for communication with the background script
