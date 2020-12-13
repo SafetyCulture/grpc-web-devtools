@@ -1,4 +1,4 @@
-FROM envoyproxy/envoy:v1.10.0
+FROM grpcweb/envoy:latest
 
 COPY ./envoy.yaml /etc/envoy/envoy.yaml
 

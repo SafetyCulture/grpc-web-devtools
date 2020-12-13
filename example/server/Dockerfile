@@ -1,4 +1,4 @@
-FROM golang:1.12
+FROM golang:alpine
 
 COPY . /server
 WORKDIR /server

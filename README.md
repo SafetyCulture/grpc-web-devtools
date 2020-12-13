@@ -33,13 +33,20 @@ or
 ## Usage
 
 ```javascript
-const enableDevTools = window.__GRPCWEB_DEVTOOLS__ || (() => {});
-const client = new EchoServiceClient('http://myapi.com');
-enableDevTools([
-  client,
-]);
+const devInterceptors = window.__GRPCWEB_DEVTOOLS__ || (() => {});
+const {
+  devToolsUnaryInterceptor,
+  devToolsStreamInterceptor,
+} = devInterceptors();
+
+const opts = {
+  unaryInterceptors: [devToolsUnaryInterceptor],
+  streamInterceptors: [devToolsStreamInterceptor],
+};
+const client = new EchoServiceClient('http://myapi.com', null, opts);
 ```
 > NOTE: Requires that your generated client(s) use `protoc-gen-grpc-web` >= 1.0.4
+> protoc-gen-grpc-web v1.2.1 is bundled
 
 ## Example
  
