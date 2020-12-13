@@ -11,12 +11,17 @@ class NetworkListRow extends PureComponent {
     const log = data[index];
     return (
       <div
-        className={`data-row ${(index + 1) % 2 === 0 ? "" : "odd"} ${index === selectedIdx ? "selected" : ""} ${log.error ? "error" : ""} `}
+        className={`data-row 
+          ${(index + 1) % 2 === 0 ? "" : "odd"} 
+          ${index === selectedIdx ? "selected" : ""} 
+          ${log.response === 'EOF' ? "eof" : ""} 
+          ${log.error ? "error" : ""} 
+        `}
         style={style}
         onClick={() => selectLogEntry(index)
         }
       >
-        <MethodIcon methodType={log.methodType} isRequest={!!log.request} />
+        <MethodIcon log={log}/>
         {log.endpoint}
       </div >
     );

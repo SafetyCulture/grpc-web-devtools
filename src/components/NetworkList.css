@@ -57,6 +57,10 @@
   color:rgb(216, 0, 0);
 }
 
+.data-grid .data .data-row.eof {
+  color: rgb(176, 159, 108);
+}
+
 .data-grid .data-row {
   color: var(--toolbar-color);
   cursor: pointer;

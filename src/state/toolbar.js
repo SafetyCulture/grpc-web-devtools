@@ -17,7 +17,7 @@ const toolbarSlice = createSlice({
     setFilterValue(state, action) {
       const { payload } = action;
       state.filterValue = payload;
-      state.filterIsEnabled = !!(state.filterValue && state.filterValue.length > 0);
+      state.filterIsEnabled = Boolean(state?.filterValue?.length ?? 0);
     }
   },
 

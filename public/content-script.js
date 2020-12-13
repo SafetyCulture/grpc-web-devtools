@@ -1,107 +1,139 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
+/* global chrome */
 
-const injectContent = `
-window.__GRPCWEB_DEVTOOLS__ = function (clients) {
-  if (clients.constructor !== Array) {
-    return
-  }
-  const postType = "__GRPCWEB_DEVTOOLS__";
-  var StreamInterceptor = function (method, request, stream) {
-    this._callbacks = {};
-    const methodType = "server_streaming";
-    window.postMessage({
-      type: postType,
-      method,
-      methodType,
-      request: request.toObject(),
-    });
-    stream.on('data', response => {
-      window.postMessage({
-        type: postType,
-        method,
-        methodType,
-        response: response.toObject(),
-      });
-      if (!!this._callbacks['data']) {
-        this._callbacks['data'](response);
-      }
-    });
-    stream.on('status', status => {
-      if (status.code === 0) {
-        window.postMessage({
-          type: postType,
-          method,
-          methodType,
-          response: "EOF",
-        });
-      }
-      if (!!this._callbacks['status']) {
-        this._callbacks['status'](status);
-      }
-    });
-    stream.on('error', error => {
-      if (error.code !== 0) {
-        window.postMessage({
-          type: postType,
-          method,
-          methodType,
-          error: {
-            code: error.code,
-            message: error.message,
-          },
-        });
-      }
-      if (!!this._callbacks['error']) {
-        this._callbacks['error'](error);
-      }
-    });
-    this._stream = stream;
-  }
-  StreamInterceptor.prototype.on = function (type, callback) {
-    this._callbacks[type] = callback;
-    return this;
-  }
-  StreamInterceptor.prototype.cancel = function () {
-    this._stream.cancel()
-  }
-  clients.map(client => {
-    client.client_.rpcCall_ = client.client_.rpcCall;
-    client.client_.rpcCall2 = function (method, request, metadata, methodInfo, callback) {
-      var posted = false;
-      var newCallback = function (err, response) {
-        if (!posted) {
-          window.postMessage({
-            type: postType,
-            method,
-            methodType: "unary",
-            request: request.toObject(),
-            response: err ? undefined : response.toObject(),
-            error: err || undefined,
-          }, "*")
-          posted = true;
-        }
-        callback(err, response)
-      }
-      return this.rpcCall_(method, request, metadata, methodInfo, newCallback);
-    }
-    client.client_.rpcCall = client.client_.rpcCall2;
-    client.client_.unaryCall = function (method, request, metadata, methodInfo) {
-      return new Promise((resolve, reject) => {
-        this.rpcCall2(method, request, metadata, methodInfo, function (error, response) {
-          error ? reject(error) : resolve(response);
-        });
-      });
+const kMessageSource = "__GRPCWEB_DEVTOOLS__";
+
+let port;
+
+function injectors(msgSource) {
+
+  const MethodType = {
+    UNARY: 'unary',
+    SERVER_STREAMING: 'server_streaming'
+  };
+
+  const requestMethodName = (req) => req?.getMethodDescriptor().name ?? 'Unknown'
+
+  const postMessage = (type, name, reqMsg, resMsg, error) => {
+    const request = reqMsg?.toObject();
+    const response = error ? undefined : resMsg?.toObject();
+    const msg = {
+      source: msgSource,
+      methodType: type,
+      method: name,
+      request,
+      response,
+      error
     };
-    client.client_.serverStreaming_ = client.client_.serverStreaming;
-    client.client_.serverStreaming2 = function (method, request, metadata, methodInfo) {
-      var stream = client.client_.serverStreaming_(method, request, metadata, methodInfo);
-      var si = new StreamInterceptor(method, request, stream);
-      return si;
+    window.postMessage(msg, '*');
+  }
+
+  class PromiseUnaryInterceptor {
+    type = MethodType.UNARY;
+
+    postResponse = (name, req, res) => {
+      postMessage(this.type, name, req?.getRequestMessage(), res?.getResponseMessage());
+      return res;
     }
-    client.client_.serverStreaming = client.client_.serverStreaming2;
-  })
+
+    postError = (name, req, error) => {
+      if (error.code === 0) return error;
+      postMessage(this.type, name, req?.getRequestMessage(), undefined, error);
+      return error;
+    }
+
+    intercept = (request, invoker) => {
+      const name = requestMethodName(request);
+      return invoker(request)
+        .then((response) => this.postResponse(name, request, response))
+        .catch((error) => this.postError(name, request, error));
+    }
+  }
+
+  class CallbackStreamInterceptor {
+
+    intercept(request, invoker) {
+
+      class InterceptedStream {
+        type = MethodType.SERVER_STREAMING;
+        name;
+        stream;
+
+        constructor(request, invoker) {
+          this.name = requestMethodName(request);
+          this.stream = invoker(this.postStreamRequest(request));
+        };
+
+        postStreamRequest = (req) => {
+          postMessage(this.type, this.name, req?.getRequestMessage());
+          return req;
+        }
+
+        postStreamData = (data) => {
+          postMessage(this.type, this.name, undefined, data);
+          return data;
+        }
+
+        postStreamError = (error) => {
+          if (error.code === 0) return error;
+          postMessage(this.type, this.name, undefined, undefined, error);
+          return error;
+        }
+
+        postStreamStatus = (status) => {
+          if (status.code !== 0) return status;
+          // FIXME: this is a semi-ugly hack. We add
+          //  toObject() => 'EOF' to the status object
+          //  to mimic an reqMes and make postMessage
+          //  happy. In the future, maybe status could
+          //  be handled properly.
+          status.toObject = () => 'EOF';
+          return this.postStreamData(status);
+        }
+
+        on = (eventType, callback) => {
+          if (eventType === 'data') {
+            const dataCallback = (data) => {
+              callback(this.postStreamData(data));
+            }
+            this.stream.on(eventType, dataCallback);
+          } else if (eventType === 'error') {
+            const errorCallback = (error) => {
+              callback(this.postStreamError(error));
+            }
+            this.stream.on('error', errorCallback);
+          } else if (eventType === 'metadata') {
+            this.stream.on('metadata', callback);
+          } else if (eventType === 'status') {
+            const statusCallback = (status) => {
+              callback(this.postStreamStatus(status));
+            }
+            this.stream.on('status', statusCallback);
+          } else if (eventType === 'end') {
+            this.stream.on('end', callback);
+          }
+          return this;
+        };
+
+        removeListener(eventType, callback) {
+        }
+
+        cancel() {
+        }
+      }
+
+      return new InterceptedStream(request, invoker);
+    };
+  }
+
+  return {
+    // this is how it should work
+    devToolsUnaryInterceptor: new PromiseUnaryInterceptor(),
+    devToolsStreamInterceptor: new CallbackStreamInterceptor(),
+  };
 }
-`
+
+const injectContent = `window.__GRPCWEB_DEVTOOLS__ = () => ${injectors}("${kMessageSource}");`
 
 let s = document.createElement('script');
 s.type = 'text/javascript';
@@ -110,18 +142,11 @@ s.appendChild(scriptNode);
 (document.head || document.documentElement).appendChild(s);
 s.parentNode.removeChild(s);
 
-var port;
-
 function setupPortIfNeeded() {
-  // eslint-disable-next-line no-undef
-  if (!port && chrome && chrome.runtime) {
-    // eslint-disable-next-line no-undef
-    port = chrome.runtime.connect(null, { name: "content" });
-    port.postMessage({ action: "init" });
-    port.onDisconnect.addListener(() => {
-      port = null;
-      window.removeEventListener("message", handleMessageEvent, false);
-    });
+  if (!port && chrome?.runtime) {
+    port = chrome.runtime.connect(null, {name: "content"});
+    port.postMessage({action: "init"});
+    port.onDisconnect.addListener(handleDisconnect);
   }
 }
 
@@ -137,10 +162,17 @@ function sendGRPCNetworkCall(data) {
 }
 
 function handleMessageEvent(event) {
-  if (event.source != window) return;
-  if (event.data.type && event.data.type == "__GRPCWEB_DEVTOOLS__") {
+  if (
+    event.source === window &&
+    event?.data.source === kMessageSource
+  ) {
     sendGRPCNetworkCall(event.data);
   }
+}
+
+function handleDisconnect() {
+  port = null;
+  window.removeEventListener("message", handleMessageEvent, false);
 }
 
 window.addEventListener("message", handleMessageEvent, false);
