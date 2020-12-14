@@ -45,7 +45,9 @@ const opts = {
 };
 const client = new EchoServiceClient('http://myapi.com', null, opts);
 ```
-> NOTE: Requires that your generated client(s) use `protoc-gen-grpc-web` >= 1.0.4
+> NOTE: 
+> Requires clients use grpc-web >= 1.2.1
+> Requires that your generated client(s) use `protoc-gen-grpc-web` >= 1.2.1
 > protoc-gen-grpc-web v1.2.1 is bundled
 
 ## Example

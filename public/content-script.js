@@ -17,6 +17,7 @@ function injectors(msgSource) {
   const postMessage = (type, name, reqMsg, resMsg, error) => {
     const request = reqMsg?.toObject();
     const response = error ? undefined : resMsg?.toObject();
+    error = error ? (({code, message}) => ({ code, message }))(error) : error;
     const msg = {
       source: msgSource,
       methodType: type,
@@ -28,7 +29,7 @@ function injectors(msgSource) {
     window.postMessage(msg, '*');
   }
 
-  class PromiseUnaryInterceptor {
+  class DevToolsUnaryInterceptor {
     type = MethodType.UNARY;
 
     postResponse = (name, req, res) => {
@@ -46,11 +47,11 @@ function injectors(msgSource) {
       const name = requestMethodName(request);
       return invoker(request)
         .then((response) => this.postResponse(name, request, response))
-        .catch((error) => this.postError(name, request, error));
+        .catch((error) => { throw this.postError(name, request, error) });
     }
   }
 
-  class CallbackStreamInterceptor {
+  class DevToolsStreamInterceptor {
 
     intercept(request, invoker) {
 
@@ -128,8 +129,8 @@ function injectors(msgSource) {
 
   return {
     // this is how it should work
-    devToolsUnaryInterceptor: new PromiseUnaryInterceptor(),
-    devToolsStreamInterceptor: new CallbackStreamInterceptor(),
+    devToolsUnaryInterceptor: new DevToolsUnaryInterceptor(),
+    devToolsStreamInterceptor: new DevToolsStreamInterceptor(),
   };
 }
 
