@@ -31,21 +31,21 @@ func (s *server) ExampleOne(_ context.Context, req *ExampleOneRequest) (*Example
 
 func (s *server) ExampleTwo(context.Context, *ExampleTwoRequest) (*ExampleTwoResponse, error) {
 	return &ExampleTwoResponse{
-		Id:  int32(time.Now().Unix()),
+		Id:  time.Now().Unix(),
 		Msg: "Example Two",
 	}, nil
 }
 
 func (s *server) AlwaysError(context.Context, *ExampleOneRequest) (*ExampleOneResponse, error) {
 	code := codes.Code(rand.Int31n(15) + 1)
-	return nil, status.Error(code, "an error ocurred")
+	return nil, status.Error(code, "an error occurred")
 }
 
 func (s *server) StreamingExample(req *StreamRequest, stream ExampleService_StreamingExampleServer) error {
   if req.GetError() {
     time.Sleep(time.Second * 10)
     code := codes.Code(rand.Int31n(15) + 1)
-	  return status.Error(code, "a server streaming error ocurred")
+	  return status.Error(code, "a server streaming error occurred")
   }
 
   for start := time.Now(); time.Since(start) < time.Minute; {

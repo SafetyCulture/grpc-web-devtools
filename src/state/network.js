@@ -1,10 +1,10 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import { createSlice } from "redux-starter-kit";
 import Fuse from 'fuse.js';
 import { setFilterValue } from "./toolbar";
+import {createSlice} from "@reduxjs/toolkit";
 
-var options = {
+const options = {
   shouldSort: false,
   threshold: 0.1,
   distance: 10000,
@@ -12,16 +12,17 @@ var options = {
     'method',
   ]
 };
-var fuse = new Fuse(null, options);
+
+// passing null here will trigger a crash
+const fuse = new Fuse([], options);
 
 const networkSlice = createSlice({
-  slice: 'network',
+  name: 'network',
   initialState: {
     preserveLog: false,
     selectedIdx: null,
     selectedEntry: null,
-    log: [
-    ],
+    log: [],
     _filterValue: '',
     _logBak: [],
   },
@@ -30,13 +31,12 @@ const networkSlice = createSlice({
       const { log, _filterValue, _logBak } = state;
       const { payload, } = action;
       if (payload.method) {
-        const parts = payload.method.split('/')
-        payload.endpoint = parts.pop() || parts.pop();
+        payload.endpoint = payload.method.substring(payload.method.lastIndexOf('/') + 1)
       }
       if (_filterValue.length > 0) {
         _logBak.push(payload);
         fuse.setCollection(_logBak);
-        state.log = fuse.search(_filterValue);
+        state.log = fuse.search(_filterValue).map(({item}) => item);
       } else {
         log.push(payload);
       }
@@ -79,7 +79,7 @@ const networkSlice = createSlice({
         state._logBak = state.log;
       }
       fuse.setCollection(state._logBak);
-      state.log = fuse.search(filterValue);
+      state.log = fuse.search(filterValue).map(({item}) => item);
     },
   },
 });

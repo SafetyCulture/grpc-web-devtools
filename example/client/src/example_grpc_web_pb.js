@@ -7,12 +7,13 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+/* eslint-disable */
+// @ts-nocheck
+
 
 const grpc = {};
 grpc.web = require('grpc-web');
 
-
-var example2_pb = require('./example2_pb.js')
 const proto = {};
 proto.s12 = {};
 proto.s12.example = require('./example_pb.js');
@@ -26,31 +27,21 @@ proto.s12.example = require('./example_pb.js');
  * @final
  */
 proto.s12.example.ExampleServiceClient =
-    function(hostname, credentials, options) {
-  if (!options) options = {};
-  options['format'] = 'text';
+  function (hostname, credentials, options) {
+    if (!options) options = {};
+    options['format'] = 'text';
 
-  /**
-   * @private @const {!grpc.web.GrpcWebClientBase} The client
-   */
-  this.client_ = new grpc.web.GrpcWebClientBase(options);
+    /**
+     * @private @const {!grpc.web.GrpcWebClientBase} The client
+     */
+    this.client_ = new grpc.web.GrpcWebClientBase(options);
 
-  /**
-   * @private @const {string} The hostname
-   */
-  this.hostname_ = hostname;
+    /**
+     * @private @const {string} The hostname
+     */
+    this.hostname_ = hostname;
 
-  /**
-   * @private @const {?Object} The credentials to be used to connect
-   *    to the server
-   */
-  this.credentials_ = credentials;
-
-  /**
-   * @private @const {?Object} Options for the client
-   */
-  this.options_ = options;
-};
+  };
 
 
 /**
@@ -62,31 +53,43 @@ proto.s12.example.ExampleServiceClient =
  * @final
  */
 proto.s12.example.ExampleServicePromiseClient =
-    function(hostname, credentials, options) {
-  if (!options) options = {};
-  options['format'] = 'text';
+  function (hostname, credentials, options) {
+    if (!options) options = {};
+    options['format'] = 'text';
 
-  /**
-   * @private @const {!grpc.web.GrpcWebClientBase} The client
-   */
-  this.client_ = new grpc.web.GrpcWebClientBase(options);
+    /**
+     * @private @const {!grpc.web.GrpcWebClientBase} The client
+     */
+    this.client_ = new grpc.web.GrpcWebClientBase(options);
 
-  /**
-   * @private @const {string} The hostname
-   */
-  this.hostname_ = hostname;
+    /**
+     * @private @const {string} The hostname
+     */
+    this.hostname_ = hostname;
 
-  /**
-   * @private @const {?Object} The credentials to be used to connect
-   *    to the server
-   */
-  this.credentials_ = credentials;
+  };
 
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.s12.example.ExampleOneRequest,
+ *   !proto.s12.example.ExampleOneResponse>}
+ */
+const methodDescriptor_ExampleService_ExampleOne = new grpc.web.MethodDescriptor(
+  '/s12.example.ExampleService/ExampleOne',
+  grpc.web.MethodType.UNARY,
+  proto.s12.example.ExampleOneRequest,
+  proto.s12.example.ExampleOneResponse,
   /**
-   * @private @const {?Object} Options for the client
+   * @param {!proto.s12.example.ExampleOneRequest} request
+   * @return {!Uint8Array}
    */
-  this.options_ = options;
-};
+  function (request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ExampleOneResponse.deserializeBinary
+);
 
 
 /**
@@ -97,8 +100,11 @@ proto.s12.example.ExampleServicePromiseClient =
  */
 const methodInfo_ExampleService_ExampleOne = new grpc.web.AbstractClientBase.MethodInfo(
   proto.s12.example.ExampleOneResponse,
-  /** @param {!proto.s12.example.ExampleOneRequest} request */
-  function(request) {
+  /**
+   * @param {!proto.s12.example.ExampleOneRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
     return request.serializeBinary();
   },
   proto.s12.example.ExampleOneResponse.deserializeBinary
@@ -116,14 +122,14 @@ const methodInfo_ExampleService_ExampleOne = new grpc.web.AbstractClientBase.Met
  *     The XHR Node Readable Stream
  */
 proto.s12.example.ExampleServiceClient.prototype.exampleOne =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
+  function (request, metadata, callback) {
+    return this.client_.rpcCall(this.hostname_ +
       '/s12.example.ExampleService/ExampleOne',
       request,
       metadata || {},
-      methodInfo_ExampleService_ExampleOne,
+      methodDescriptor_ExampleService_ExampleOne,
       callback);
-};
+  };
 
 
 /**
@@ -132,16 +138,38 @@ proto.s12.example.ExampleServiceClient.prototype.exampleOne =
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.s12.example.ExampleOneResponse>}
- *     A native promise that resolves to the response
+ *     Promise that resolves to the response
  */
 proto.s12.example.ExampleServicePromiseClient.prototype.exampleOne =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
+  function (request, metadata) {
+    return this.client_.unaryCall(this.hostname_ +
       '/s12.example.ExampleService/ExampleOne',
       request,
       metadata || {},
-      methodInfo_ExampleService_ExampleOne);
-};
+      methodDescriptor_ExampleService_ExampleOne);
+  };
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.s12.example.ExampleTwoRequest,
+ *   !proto.s12.example.ExampleTwoResponse>}
+ */
+const methodDescriptor_ExampleService_ExampleTwo = new grpc.web.MethodDescriptor(
+  '/s12.example.ExampleService/ExampleTwo',
+  grpc.web.MethodType.UNARY,
+  proto.s12.example.ExampleTwoRequest,
+  proto.s12.example.ExampleTwoResponse,
+  /**
+   * @param {!proto.s12.example.ExampleTwoRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ExampleTwoResponse.deserializeBinary
+);
 
 
 /**
@@ -151,12 +179,15 @@ proto.s12.example.ExampleServicePromiseClient.prototype.exampleOne =
  *   !proto.s12.example.ExampleTwoResponse>}
  */
 const methodInfo_ExampleService_ExampleTwo = new grpc.web.AbstractClientBase.MethodInfo(
-  example2_pb.ExampleTwoResponse,
-  /** @param {!proto.s12.example.ExampleTwoRequest} request */
-  function(request) {
+  proto.s12.example.ExampleTwoResponse,
+  /**
+   * @param {!proto.s12.example.ExampleTwoRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
     return request.serializeBinary();
   },
-  example2_pb.ExampleTwoResponse.deserializeBinary
+  proto.s12.example.ExampleTwoResponse.deserializeBinary
 );
 
 
@@ -171,14 +202,14 @@ const methodInfo_ExampleService_ExampleTwo = new grpc.web.AbstractClientBase.Met
  *     The XHR Node Readable Stream
  */
 proto.s12.example.ExampleServiceClient.prototype.exampleTwo =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
+  function (request, metadata, callback) {
+    return this.client_.rpcCall(this.hostname_ +
       '/s12.example.ExampleService/ExampleTwo',
       request,
       metadata || {},
-      methodInfo_ExampleService_ExampleTwo,
+      methodDescriptor_ExampleService_ExampleTwo,
       callback);
-};
+  };
 
 
 /**
@@ -187,16 +218,38 @@ proto.s12.example.ExampleServiceClient.prototype.exampleTwo =
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.s12.example.ExampleTwoResponse>}
- *     A native promise that resolves to the response
+ *     Promise that resolves to the response
  */
 proto.s12.example.ExampleServicePromiseClient.prototype.exampleTwo =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
+  function (request, metadata) {
+    return this.client_.unaryCall(this.hostname_ +
       '/s12.example.ExampleService/ExampleTwo',
       request,
       metadata || {},
-      methodInfo_ExampleService_ExampleTwo);
-};
+      methodDescriptor_ExampleService_ExampleTwo);
+  };
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.s12.example.ExampleOneRequest,
+ *   !proto.s12.example.ExampleOneResponse>}
+ */
+const methodDescriptor_ExampleService_AlwaysError = new grpc.web.MethodDescriptor(
+  '/s12.example.ExampleService/AlwaysError',
+  grpc.web.MethodType.UNARY,
+  proto.s12.example.ExampleOneRequest,
+  proto.s12.example.ExampleOneResponse,
+  /**
+   * @param {!proto.s12.example.ExampleOneRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ExampleOneResponse.deserializeBinary
+);
 
 
 /**
@@ -207,8 +260,11 @@ proto.s12.example.ExampleServicePromiseClient.prototype.exampleTwo =
  */
 const methodInfo_ExampleService_AlwaysError = new grpc.web.AbstractClientBase.MethodInfo(
   proto.s12.example.ExampleOneResponse,
-  /** @param {!proto.s12.example.ExampleOneRequest} request */
-  function(request) {
+  /**
+   * @param {!proto.s12.example.ExampleOneRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
     return request.serializeBinary();
   },
   proto.s12.example.ExampleOneResponse.deserializeBinary
@@ -226,14 +282,14 @@ const methodInfo_ExampleService_AlwaysError = new grpc.web.AbstractClientBase.Me
  *     The XHR Node Readable Stream
  */
 proto.s12.example.ExampleServiceClient.prototype.alwaysError =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
+  function (request, metadata, callback) {
+    return this.client_.rpcCall(this.hostname_ +
       '/s12.example.ExampleService/AlwaysError',
       request,
       metadata || {},
-      methodInfo_ExampleService_AlwaysError,
+      methodDescriptor_ExampleService_AlwaysError,
       callback);
-};
+  };
 
 
 /**
@@ -242,16 +298,38 @@ proto.s12.example.ExampleServiceClient.prototype.alwaysError =
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.s12.example.ExampleOneResponse>}
- *     A native promise that resolves to the response
+ *     Promise that resolves to the response
  */
 proto.s12.example.ExampleServicePromiseClient.prototype.alwaysError =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
+  function (request, metadata) {
+    return this.client_.unaryCall(this.hostname_ +
       '/s12.example.ExampleService/AlwaysError',
       request,
       metadata || {},
-      methodInfo_ExampleService_AlwaysError);
-};
+      methodDescriptor_ExampleService_AlwaysError);
+  };
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.s12.example.StreamRequest,
+ *   !proto.s12.example.ServerTime>}
+ */
+const methodDescriptor_ExampleService_StreamingExample = new grpc.web.MethodDescriptor(
+  '/s12.example.ExampleService/StreamingExample',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.s12.example.StreamRequest,
+  proto.s12.example.ServerTime,
+  /**
+   * @param {!proto.s12.example.StreamRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
+    return request.serializeBinary();
+  },
+  proto.s12.example.ServerTime.deserializeBinary
+);
 
 
 /**
@@ -262,8 +340,11 @@ proto.s12.example.ExampleServicePromiseClient.prototype.alwaysError =
  */
 const methodInfo_ExampleService_StreamingExample = new grpc.web.AbstractClientBase.MethodInfo(
   proto.s12.example.ServerTime,
-  /** @param {!proto.s12.example.StreamRequest} request */
-  function(request) {
+  /**
+   * @param {!proto.s12.example.StreamRequest} request
+   * @return {!Uint8Array}
+   */
+  function (request) {
     return request.serializeBinary();
   },
   proto.s12.example.ServerTime.deserializeBinary
@@ -278,13 +359,13 @@ const methodInfo_ExampleService_StreamingExample = new grpc.web.AbstractClientBa
  *     The XHR Node Readable Stream
  */
 proto.s12.example.ExampleServiceClient.prototype.streamingExample =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
+  function (request, metadata) {
+    return this.client_.serverStreaming(this.hostname_ +
       '/s12.example.ExampleService/StreamingExample',
       request,
       metadata || {},
-      methodInfo_ExampleService_StreamingExample);
-};
+      methodDescriptor_ExampleService_StreamingExample);
+  };
 
 
 /**
@@ -295,13 +376,13 @@ proto.s12.example.ExampleServiceClient.prototype.streamingExample =
  *     The XHR Node Readable Stream
  */
 proto.s12.example.ExampleServicePromiseClient.prototype.streamingExample =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
+  function (request, metadata) {
+    return this.client_.serverStreaming(this.hostname_ +
       '/s12.example.ExampleService/StreamingExample',
       request,
       metadata || {},
-      methodInfo_ExampleService_StreamingExample);
-};
+      methodDescriptor_ExampleService_StreamingExample);
+  };
 
 
 module.exports = proto.s12.example;

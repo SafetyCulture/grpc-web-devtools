@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package s12.example;
 
-import "example2.proto";
-
-option go_package = "main";
+option go_package = ".;main";
 
 service ExampleService {
     rpc ExampleOne(ExampleOneRequest) returns (ExampleOneResponse);
@@ -20,6 +18,15 @@ message ExampleOneRequest {
 message ExampleOneResponse {
     string id = 1;
     string msg = 2;
+}
+
+message ExampleTwoRequest {
+  int64 id = 1;
+}
+
+message ExampleTwoResponse {
+  int64 id = 1;
+  string msg = 2;
 }
 
 message StreamRequest {

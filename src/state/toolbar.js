@@ -1,9 +1,10 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import { createSlice } from "redux-starter-kit";
+
+import {createSlice} from "@reduxjs/toolkit";
 
 const toolbarSlice = createSlice({
-  slice: 'toolbar',
+  name: 'toolbar',
   initialState: {
     filterIsOpen: true,
     filterIsEnabled: false,
@@ -16,7 +17,7 @@ const toolbarSlice = createSlice({
     setFilterValue(state, action) {
       const { payload } = action;
       state.filterValue = payload;
-      state.filterIsEnabled = !!(state.filterValue && state.filterValue.length > 0);
+      state.filterIsEnabled = Boolean(state?.filterValue?.length ?? 0);
     }
   },
 
