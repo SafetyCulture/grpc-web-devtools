@@ -1,9 +1,9 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import { createSlice } from "redux-starter-kit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const toolbarSlice = createSlice({
-  slice: 'toolbar',
+  name: 'toolbar',
   initialState: {
     filterIsOpen: true,
     filterIsEnabled: false,
