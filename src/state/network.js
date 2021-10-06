@@ -12,7 +12,7 @@ var options = {
     'method',
   ]
 };
-var fuse = new Fuse(null, options);
+var fuse = new Fuse([], options);
 
 const networkSlice = createSlice({
   slice: 'network',
