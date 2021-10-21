@@ -8,17 +8,19 @@
     "url": "https://github.com/SafetyCulture/grpc-web-devtools"
   },
   "dependencies": {
-    "fuse.js": "^3.4.4",
-    "lodash": "4.17.15",
+    "@reduxjs/toolkit": "^1.0.4",
+    "fuse.js": "^6.4.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-json-view": "^1.19.1",
+    "react-json-view": "^1.21.3",
     "react-redux": "^7.0.2",
-    "react-scripts": "2.1.8",
-    "react-split": "^2.0.4",
-    "react-virtualized-auto-sizer": "^1.0.2",
-    "react-window": "^1.8.1",
-    "redux-starter-kit": "^0.4.3"
+    "react-scripts": "^4.0.3",
+    "react-split": "^2.0.13",
+    "react-virtualized-auto-sizer": "^1.0.6",
+    "react-window": "^1.8.6"
+  },
+  "devDependencies": {
+    "@babel/helper-define-map": "^7.15.4"
   },
   "scripts": {
     "start": "react-scripts start",
