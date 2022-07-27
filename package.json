@@ -10,10 +10,10 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.0.4",
     "fuse.js": "^6.4.6",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-json-view": "^1.21.3",
-    "react-redux": "^7.0.2",
+    "react-redux": "^7.2.8",
     "react-scripts": "^4.0.3",
     "react-split": "^2.0.13",
     "react-virtualized-auto-sizer": "^1.0.6",
