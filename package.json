@@ -14,7 +14,7 @@
     "react-dom": "^16.14.0",
     "react-json-view": "^1.21.3",
     "react-redux": "^7.2.8",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-split": "^2.0.13",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "^1.8.6"
