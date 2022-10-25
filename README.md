@@ -62,7 +62,7 @@ make example-down
 
 ## Connect-Web
 
-grpc-web-devtools now also supports [connect-web](https://github.com/bufbuild/connect-web)! Connect web
+grpc-web-devtools now also supports [connect-web](https://github.com/bufbuild/connect-web)!
 
 ```ts
 // __CONNECT_WEB_DEVTOOLS__ is loaded in as a script, so it is not guaranteed to be loaded before your code.
@@ -72,7 +72,7 @@ const interceptors: Interceptor[] = window.__CONNECT_WEB_DEVTOOLS__ !== "undefin
 // To get around the fact that __CONNECT_WEB_DEVTOOLS__ might not be loaded, we can listen for a custom event,
 // and then push the interceptor to our array once loaded.
 window.addEventListener("connect-web-dev-tools-ready", () => {
-  if (isInClientSide() && window.__CONNECT_WEB_DEVTOOLS__) {
+  if (typeof window.__CONNECT_WEB_DEVTOOLS__ !== "undefined") {
     interceptors.push(window.__CONNECT_WEB_DEVTOOLS__);
   }
 });
