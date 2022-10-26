@@ -102,13 +102,21 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
   })
 }
 `
-
+// Inject script for grpc-web
 let s = document.createElement('script');
 s.type = 'text/javascript';
 const scriptNode = document.createTextNode(injectContent);
 s.appendChild(scriptNode);
 (document.head || document.documentElement).appendChild(s);
 s.parentNode.removeChild(s);
+
+// Inject script for connect-web
+var cs = document.createElement('script');
+cs.src = chrome.runtime.getURL('connect-web-interceptor.js');
+cs.onload = function () {
+  this.remove();
+};
+(document.head || document.documentElement).appendChild(cs);
 
 var port;
 

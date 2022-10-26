@@ -16,6 +16,7 @@
     ],
     "persistent": false
   },
+  "web_accessible_resources": ["connect-web-interceptor.js"],
   "content_scripts": [
     {
       "matches": [
