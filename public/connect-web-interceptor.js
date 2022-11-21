@@ -19,13 +19,16 @@ const interceptor =
             ...resp,
             async read() {
               const streamResp = await resp.read();
-              window.postMessage({
-                type: "__GRPCWEB_DEVTOOLS__",
-                methodType: "server_streaming",
-                method: req.method.name,
-                request: req.message.toJson(),
-                response: streamResp.value.toJson(),
-              }, "*")
+              // "value" could be undefined when "done" is true
+              if (streamResp.value) {
+                window.postMessage({
+                  type: "__GRPCWEB_DEVTOOLS__",
+                  methodType: "server_streaming",
+                  method: req.method.name,
+                  request: req.message.toJson(),
+                  response: streamResp.value.toJson(),
+                }, "*");
+              }
               return streamResp;
             }
           }
