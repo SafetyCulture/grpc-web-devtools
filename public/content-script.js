@@ -26,6 +26,17 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
         this._callbacks['data'](response);
       }
     });
+    stream.on('metadata', status => {
+      window.postMessage({
+        type: postType,
+        method,
+        methodType,
+        response: status,
+      });
+      if (!!this._callbacks['data']) {
+        this._callbacks['data'](response);
+      }
+    });
     stream.on('status', status => {
       if (status.code === 0) {
         window.postMessage({
@@ -55,10 +66,24 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
         this._callbacks['error'](error);
       }
     });
+    stream.on('end', () => {
+      window.postMessage({
+        type: postType,
+        method,
+        methodType,
+      });
+      if (!!this._callbacks['end']) {
+        this._callbacks['end']();
+      }
+    });
     this._stream = stream;
   }
   StreamInterceptor.prototype.on = function (type, callback) {
     this._callbacks[type] = callback;
+    return this;
+  }
+  StreamInterceptor.prototype.removeListener = function (type, callback) {
+    delete this._callbacks[type];
     return this;
   }
   StreamInterceptor.prototype.cancel = function () {
@@ -101,18 +126,18 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
     client.client_.serverStreaming = client.client_.serverStreaming2;
   })
 }
-`
+`;
 // Inject script for grpc-web
-let s = document.createElement('script');
-s.type = 'text/javascript';
+let s = document.createElement("script");
+s.type = "text/javascript";
 const scriptNode = document.createTextNode(injectContent);
 s.appendChild(scriptNode);
 (document.head || document.documentElement).appendChild(s);
 s.parentNode.removeChild(s);
 
 // Inject script for connect-web
-var cs = document.createElement('script');
-cs.src = chrome.runtime.getURL('connect-web-interceptor.js');
+var cs = document.createElement("script");
+cs.src = chrome.runtime.getURL("connect-web-interceptor.js");
 cs.onload = function () {
   this.remove();
 };
