@@ -10,18 +10,15 @@
   },
   "devtools_page": "devtools.html",
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "sandbox": "..."
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "background": {
-    "service_worker": "background.js",
-    "persistent": false
+    "service_worker": "background.js"
   },
   "web_accessible_resources": [
     {
-      "resources": ["connect-web-interceptor.js"],
-      "matches": [],
-      "extension_ids": []
+      "resources": ["connect-web-interceptor.js", "inject.js"],
+      "matches": ["https://*/*"]
     }
   ],
   "content_scripts": [
