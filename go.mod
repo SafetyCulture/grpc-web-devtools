@@ -1,1 +1,1 @@
-module github.com/SafetyCulture/grpc-web-devtools
+module github.com/IvanRodriCalleja/grpc-web-devtools

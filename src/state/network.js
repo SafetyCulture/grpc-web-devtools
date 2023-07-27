@@ -17,7 +17,7 @@ var fuse = new Fuse([], options);
 const networkSlice = createSlice({
   name: 'network',
   initialState: {
-    preserveLog: false,
+    preserveLog: true,
     selectedIdx: null,
     selectedEntry: null,
     log: [

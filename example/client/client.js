@@ -50,6 +50,7 @@ function exampleStream(isErr) {
   });
   stream.on('status', console.log);
   stream.on('error', console.log);
+  stream.on('end', () => console.log('end of stream'));
 }
 
 function exampleStreamChain() {
@@ -58,7 +59,8 @@ function exampleStreamChain() {
       document.body.innerHTML += `<div>${res.getTime()}</div>`;
     })
     .on('status', console.warn)
-    .on('error', console.error);
+    .on('error', console.error)
+    .on('end', () => console.log('end of stream'));
 }
 
 exampleOne()
