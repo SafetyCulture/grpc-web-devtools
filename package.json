@@ -1,11 +1,11 @@
 {
   "name": "grpc-web-devtools",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "license": "MIT",
-  "author": "SafetyCulture",
+  "author": "SergioTx",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SafetyCulture/grpc-web-devtools"
+    "url": "https://github.com/SergioTx/grpc-web-devtools"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
