@@ -87,7 +87,7 @@
     StreamInterceptor.prototype.cancel = function () {
       this._stream.cancel();
     };
-    clients.map((client) => {
+    clients.forEach((client) => {
       client.client_.rpcCall_ = client.client_.rpcCall;
       client.client_.rpcCall2 = function (
         method,
