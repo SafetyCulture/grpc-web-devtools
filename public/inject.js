@@ -160,6 +160,4 @@
       client.client_.serverStreaming = client.client_.serverStreaming2;
     });
   };
-  console.log("ADDED!");
-  console.log(window.__GRPCWEB_DEVTOOLS__);
 })();
