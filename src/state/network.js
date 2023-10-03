@@ -1,45 +1,32 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import { createSlice } from "@reduxjs/toolkit";
-import Fuse from 'fuse.js';
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { setFilterValue } from "./toolbar";
 
-var options = {
-  shouldSort: false,
-  threshold: 0.1,
-  distance: 10000,
-  keys: [
-    'method',
-  ]
-};
-var fuse = new Fuse([], options);
-
 const networkSlice = createSlice({
-  name: 'network',
+  name: "network",
   initialState: {
     preserveLog: false,
     selectedIdx: null,
     selectedEntry: null,
-    log: [
-    ],
-    _filterValue: '',
-    _logBak: [],
+    log: [],
+    stopLog: false,
+    _filterValue: "",
   },
   reducers: {
     networkLog(state, action) {
-      const { log, _filterValue, _logBak } = state;
-      const { payload, } = action;
-      if (payload.method) {
-        const parts = payload.method.split('/')
-        payload.endpoint = parts.pop() || parts.pop();
-      }
-      if (_filterValue.length > 0) {
-        _logBak.push(payload);
-        fuse.setCollection(_logBak);
-        state.log = fuse.search(_filterValue);
-      } else {
+      const { log, stopLog } = state;
+      if (!stopLog) {
+        const { payload } = action;
+        if (payload.method) {
+          const parts = payload.method.split("/");
+          payload.endpoint = parts.pop() || parts.pop();
+        }
         log.push(payload);
       }
+    },
+    toggleStopResumeLogs(state) {
+      state.stopLog = !state.stopLog;
     },
     selectLogEntry(state, action) {
       const { payload: idx } = action;
@@ -57,7 +44,6 @@ const networkSlice = createSlice({
       state.selectedIdx = null;
       state.selectedEntry = null;
       state.log = [];
-      state._logBak = [];
     },
     setPreserveLog(state, action) {
       const { payload } = action;
@@ -66,25 +52,27 @@ const networkSlice = createSlice({
   },
   extraReducers: {
     [setFilterValue]: (state, action) => {
-
-      const { payload: filterValue = '' } = action;
+      const { payload: filterValue = "" } = action;
       state._filterValue = filterValue;
-      if (filterValue.length === 0) {
-        state.log = state._logBak;
-        state._logBak = [];
-        return;
-      }
-
-      if (state._logBak.length === 0 && state.log.length !== 0) {
-        state._logBak = state.log;
-      }
-      fuse.setCollection(state._logBak);
-      state.log = fuse.search(filterValue);
     },
   },
 });
 
-const { actions, reducer } = networkSlice;
-export const { networkLog, selectLogEntry, clearLog, setPreserveLog } = actions;
+export const selectFilteredLogs = createSelector(
+  [(state) => state.network.log, (state) => state.network._filterValue],
+  (log, filter) => {
+    const lcFilter = filter.toLowerCase();
+    return log.filter((l) => l.method?.toLowerCase().includes(lcFilter));
+  }
+);
 
-export default reducer
+const { actions, reducer } = networkSlice;
+export const {
+  networkLog,
+  selectLogEntry,
+  clearLog,
+  setPreserveLog,
+  toggleStopResumeLogs,
+} = actions;
+
+export default reducer;

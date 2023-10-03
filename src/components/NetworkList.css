@@ -1,7 +1,6 @@
-
 .network-list {
   overflow: hidden;
-  background-color:var(--network-bg);
+  background-color: var(--network-bg);
 }
 
 .data-grid {
@@ -54,7 +53,7 @@
 }
 
 .data-grid .data .data-row.error {
-  color:rgb(216, 0, 0);
+  color: rgb(216, 0, 0);
 }
 
 .data-grid .data-row {
@@ -105,4 +104,28 @@
   left: 0;
   right: 0;
   overflow-x: hidden;
+}
+
+.data-row svg path.arrow-up {
+  fill: #1976d2;
+}
+.data-row svg path.arrow-down {
+  fill: #ff9800;
+}
+.data-row .service-path {
+  color: #616161;
+}
+.data-row.selected .service-path {
+  color: #e1f5fe;
+}
+
+@media (prefers-color-scheme: light) {
+  .data-row svg path.arrow-up {
+    fill: #1976d2;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .data-row svg path.arrow-up {
+    fill: #03a9f4;
+  }
 }

@@ -1,32 +1,52 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setPreserveLog, clearLog } from '../state/network';
-import { toggleFilter, setFilterValue } from '../state/toolbar';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  setPreserveLog,
+  clearLog,
+  toggleStopResumeLogs,
+} from "../state/network";
+import { toggleFilter, setFilterValue } from "../state/toolbar";
 import { toggleClipboard } from "../state/clipboard";
-import ClearIcon from '../icons/Clear';
-import FilterIcon from '../icons/Filter';
-import './Toolbar.css';
+import ClearIcon from "../icons/Clear";
+import StopIcon from "../icons/Stop";
+import PlayIcon from "../icons/Play";
+import FilterIcon from "../icons/Filter";
+import "./Toolbar.css";
 
 class Toolbar extends Component {
-
   _renderButtons() {
-    const { clearLog, toggleFilter, toolbar: { filterIsEnabled, filterIsOpen }} = this.props;
+    const {
+      clearLog,
+      toggleFilter,
+      toolbar: { filterIsEnabled, filterIsOpen },
+      stopIsEnabled,
+      toggleStopResumeLogs,
+    } = this.props;
+
     return (
-        <>
-          <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })} >
-            <ClearIcon />
-          </ToolbarButton>
-          <ToolbarButton
-            title="Filter"
-            onClick={() => toggleFilter()}
-            className={(filterIsOpen ? "open " : "") + (filterIsEnabled ? "enabled" : "")}
-           >
-             <FilterIcon />
-           </ToolbarButton>
-        </>
-    )
+      <>
+        <ToolbarButton title="Clear" onClick={() => clearLog({ force: true })}>
+          <ClearIcon />
+        </ToolbarButton>
+        <ToolbarButton
+          title={stopIsEnabled ? "Resume" : "Stop"}
+          onClick={() => toggleStopResumeLogs()}
+        >
+          {stopIsEnabled ? <PlayIcon /> : <StopIcon />}
+        </ToolbarButton>
+        <ToolbarButton
+          title="Filter"
+          onClick={() => toggleFilter()}
+          className={
+            (filterIsOpen ? "open " : "") + (filterIsEnabled ? "enabled" : "")
+          }
+        >
+          <FilterIcon />
+        </ToolbarButton>
+      </>
+    );
   }
 
   _renderFilterToolbar() {
@@ -55,9 +75,12 @@ class Toolbar extends Component {
       <>
         <div className="toolbar">
           <div className="toolbar-shadow">
-            {this._renderButtons()}           
+            {this._renderButtons()}
             <ToolbarDivider />
-            <span className="toolbar-item checkbox" title="Do not clear log on page reload / navigation">
+            <span
+              className="toolbar-item checkbox"
+              title="Do not clear log on page reload / navigation"
+            >
               <input
                 type="checkbox"
                 id="ui-checkbox-preserve-log"
@@ -67,14 +90,19 @@ class Toolbar extends Component {
               <label htmlFor="ui-checkbox-preserve-log">Preserve log</label>
             </span>
             <ToolbarDivider />
-            <span className="toolbar-item checkbox" title="Enables clipboard for JSON tree (decreases rendering performance)">
+            <span
+              className="toolbar-item checkbox"
+              title="Enables clipboard for JSON tree (decreases rendering performance)"
+            >
               <input
                 type="checkbox"
                 id="ui-checkbox-clipboard-is-enabled"
                 checked={clipboardIsEnabled}
                 onChange={this._onEnableClipboardChanged}
               />
-              <label htmlFor="ui-checkbox-clipboard-is-enabled">Enable clipboard</label>
+              <label htmlFor="ui-checkbox-clipboard-is-enabled">
+                Enable clipboard
+              </label>
             </span>
           </div>
         </div>
@@ -83,27 +111,25 @@ class Toolbar extends Component {
     );
   }
 
-  _onPreserveLogChanged = e => {
+  _onPreserveLogChanged = (e) => {
     const { setPreserveLog } = this.props;
     setPreserveLog(e.target.checked);
-  }
+  };
 
-  _onEnableClipboardChanged = e => {
+  _onEnableClipboardChanged = (e) => {
     const { toggleClipboard } = this.props;
     toggleClipboard(e.target.checked);
-  }
+  };
 
-  _onFilterValueChanged = e => {
+  _onFilterValueChanged = (e) => {
     const { setFilterValue } = this.props;
     setFilterValue(e.target.value);
-  }
+  };
 }
 
 class ToolbarDivider extends Component {
   render() {
-    return (
-      <div className="toolbar-item toolbar-divider" />
-    );
+    return <div className="toolbar-item toolbar-divider" />;
   }
 }
 
@@ -118,10 +144,18 @@ class ToolbarButton extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   preserveLog: state.network.preserveLog,
   toolbar: state.toolbar,
   clipboardIsEnabled: state.clipboard.clipboardIsEnabled,
+  stopIsEnabled: state.network.stopLog,
 });
-const mapDispatchToProps = { setPreserveLog, clearLog, toggleFilter, setFilterValue, toggleClipboard };
+const mapDispatchToProps = {
+  setPreserveLog,
+  clearLog,
+  toggleFilter,
+  setFilterValue,
+  toggleClipboard,
+  toggleStopResumeLogs,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
