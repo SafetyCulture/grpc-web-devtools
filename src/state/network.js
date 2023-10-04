@@ -10,19 +10,34 @@ const networkSlice = createSlice({
     preserveLog: false,
     selectedEntry: null,
     stopLog: false,
+    /*
+     * Stored to avoid calculating all the filtering every time a new log appears (as it can be a lot).
+     * This way only new logs are filtered and added or not to the filteredLogs array.
+     */
+    _filteredLogs: [],
     _methodFilter: "",
     _contentFilter: "",
   },
   reducers: {
     networkLog(state, action) {
-      const { logs, stopLog } = state;
+      const { logs, _filteredLogs, stopLog, _contentFilter, _methodFilter } =
+        state;
       if (!stopLog) {
-        const { payload } = action;
-        if (payload.method) {
-          const parts = payload.method.split("/");
-          payload.endpoint = parts.pop() || parts.pop();
+        const { payload: log } = action;
+        if (log.method) {
+          const parts = log.method.split("/");
+          log.endpoint = parts.pop() || parts.pop();
         }
-        logs.push(payload);
+        logs.push(log);
+        if (
+          logCompliesWithFilters(
+            log,
+            _contentFilter.toLowerCase(),
+            _methodFilter.toLowerCase()
+          )
+        ) {
+          _filteredLogs.push(log);
+        }
       }
     },
     toggleStopResumeLogs(state) {
@@ -38,6 +53,7 @@ const networkSlice = createSlice({
       }
       state.selectedEntry = null;
       state.logs = [];
+      state._filteredLogs = [];
     },
     setPreserveLog(state, action) {
       const { payload } = action;
@@ -48,33 +64,47 @@ const networkSlice = createSlice({
     [setMethodFilter]: (state, action) => {
       const { payload: filterValue = "" } = action;
       state._methodFilter = filterValue;
+      state._filteredLogs = filterLogs(
+        state.logs,
+        state._methodFilter,
+        state._contentFilter
+      );
     },
     [setContentFilter]: (state, action) => {
       const { payload: filterValue = "" } = action;
       state._contentFilter = filterValue;
+      state._filteredLogs = filterLogs(
+        state.logs,
+        state._methodFilter,
+        state._contentFilter
+      );
     },
   },
 });
 
 export const selectFilteredLogs = createSelector(
-  [
-    (state) => state.network.logs,
-    (state) => state.network._methodFilter,
-    (state) => state.network._contentFilter,
-  ],
-  (logs, methodFilter, contentFilter) => {
-    const lcMethodFilter = methodFilter.toLowerCase();
-    const lcContentFilter = contentFilter.toLowerCase();
-    return logs.filter(
-      (l) =>
-        l.method?.toLowerCase().includes(lcMethodFilter) &&
-        // TODO implement recursive search?
-        // TODO rethink this filter as it's filtering ALL the list when one arrives
-        (!contentFilter ||
-          JSON.stringify(l).toLowerCase().includes(lcContentFilter))
-    );
+  [(state) => state.network._filteredLogs],
+  (logs) => {
+    return logs;
   }
 );
+
+function filterLogs(logs, methodFilter, contentFilter) {
+  const lcMethodFilter = methodFilter.toLowerCase();
+  const lcContentFilter = contentFilter.toLowerCase();
+  return logs.filter((l) =>
+    logCompliesWithFilters(l, lcMethodFilter, lcContentFilter)
+  );
+}
+
+function logCompliesWithFilters(log, methodFilter, contentFilter) {
+  return (
+    log.method?.toLowerCase().includes(methodFilter) &&
+    // TODO implement recursive search?
+    (!contentFilter ||
+      JSON.stringify(log).toLowerCase().includes(contentFilter))
+  );
+}
 
 const { actions, reducer } = networkSlice;
 export const {
