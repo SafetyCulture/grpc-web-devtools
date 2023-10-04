@@ -1,6 +1,6 @@
 {
   "name": "gRPC-Web Developer Tools",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "manifest_version": 3,
   "description": "gRPC-Web Developer Tools for debugging application's gRPC-Web network requests.",
   "icons": {

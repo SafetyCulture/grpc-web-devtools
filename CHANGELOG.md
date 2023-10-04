@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.2.0 - 2023.10.04
+
+- fix: row selection selecting wrong data.
+- feat: add filter by content. This filter searches in a stringified JSON.
+- perf: store again the filtered list to avoid calculations.
+
 ## 2.1.0 - 2023.10.03
 
 - feat: add stop/resume button.
