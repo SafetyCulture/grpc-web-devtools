@@ -7,7 +7,11 @@ import {
   clearLog,
   toggleStopResumeLogs,
 } from "../state/network";
-import { toggleFilter, setFilterValue } from "../state/toolbar";
+import {
+  toggleFilter,
+  setMethodFilter,
+  setContentFilter,
+} from "../state/toolbar";
 import { toggleClipboard } from "../state/clipboard";
 import ClearIcon from "../icons/Clear";
 import StopIcon from "../icons/Stop";
@@ -56,11 +60,21 @@ class Toolbar extends Component {
         <div className="toolbar">
           <div className="toolbar-shadow">
             <span className="toolbar-item text">
+              Method:{" "}
               <input
                 type="text"
-                placeholder="Filter"
+                placeholder="Filter Method"
                 value={filterValue}
-                onChange={this._onFilterValueChanged}
+                onChange={this._onMethodFilterChange}
+              />
+            </span>
+            <span className="toolbar-item text">
+              Content:{" "}
+              <input
+                type="text"
+                placeholder="Filter Content"
+                value={filterValue}
+                onChange={this._onContentFilterChange}
               />
             </span>
           </div>
@@ -121,17 +135,18 @@ class Toolbar extends Component {
     toggleClipboard(e.target.checked);
   };
 
-  _onFilterValueChanged = (e) => {
-    const { setFilterValue } = this.props;
-    setFilterValue(e.target.value);
+  _onMethodFilterChange = (e) => {
+    const { setMethodFilter } = this.props;
+    setMethodFilter(e.target.value);
+  };
+
+  _onContentFilterChange = (e) => {
+    const { setContentFilter } = this.props;
+    setContentFilter(e.target.value);
   };
 }
 
-class ToolbarDivider extends Component {
-  render() {
-    return <div className="toolbar-item toolbar-divider" />;
-  }
-}
+const ToolbarDivider = () => <div className="toolbar-item toolbar-divider" />;
 
 class ToolbarButton extends Component {
   render() {
@@ -154,7 +169,8 @@ const mapDispatchToProps = {
   setPreserveLog,
   clearLog,
   toggleFilter,
-  setFilterValue,
+  setMethodFilter,
+  setContentFilter,
   toggleClipboard,
   toggleStopResumeLogs,
 };

@@ -9,7 +9,7 @@ import MethodIcon from "./MethodIcon";
 
 class NetworkListRow extends PureComponent {
   render() {
-    const { index, data, style, selectLogEntry, selectedIdx } = this.props;
+    const { index, data, style, selectLogEntry, selectedEntry } = this.props;
     const log = data[index];
 
     let endpoint = log.endpoint;
@@ -31,10 +31,10 @@ class NetworkListRow extends PureComponent {
     return (
       <div
         className={`data-row ${(index + 1) % 2 === 0 ? "" : "odd"} ${
-          index === selectedIdx ? "selected" : ""
+          log === selectedEntry ? "selected" : ""
         } ${log.error ? "error" : ""} `}
         style={style}
-        onClick={() => selectLogEntry(index)}
+        onClick={() => selectLogEntry(log)}
       >
         <MethodIcon methodType={log.methodType} isRequest={!!log.request} />
         {endpoint}
@@ -43,6 +43,8 @@ class NetworkListRow extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({ selectedIdx: state.network.selectedIdx });
+const mapStateToProps = (state) => ({
+  selectedEntry: state.network.selectedEntry,
+});
 const mapDispatchToProps = { selectLogEntry };
 export default connect(mapStateToProps, mapDispatchToProps)(NetworkListRow);

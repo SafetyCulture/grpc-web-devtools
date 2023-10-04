@@ -1,49 +1,43 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { setFilterValue } from "./toolbar";
+import { setMethodFilter, setContentFilter } from "./toolbar";
 
 const networkSlice = createSlice({
   name: "network",
   initialState: {
+    logs: [],
     preserveLog: false,
-    selectedIdx: null,
     selectedEntry: null,
-    log: [],
     stopLog: false,
-    _filterValue: "",
+    _methodFilter: "",
+    _contentFilter: "",
   },
   reducers: {
     networkLog(state, action) {
-      const { log, stopLog } = state;
+      const { logs, stopLog } = state;
       if (!stopLog) {
         const { payload } = action;
         if (payload.method) {
           const parts = payload.method.split("/");
           payload.endpoint = parts.pop() || parts.pop();
         }
-        log.push(payload);
+        logs.push(payload);
       }
     },
     toggleStopResumeLogs(state) {
       state.stopLog = !state.stopLog;
     },
     selectLogEntry(state, action) {
-      const { payload: idx } = action;
-      const entry = state.log[idx];
-      if (entry) {
-        state.selectedIdx = idx;
-        state.selectedEntry = entry;
-      }
+      state.selectedEntry = action.payload;
     },
     clearLog(state, action) {
       const { payload: { force } = {} } = action;
       if (state.preserveLog && !force) {
         return;
       }
-      state.selectedIdx = null;
       state.selectedEntry = null;
-      state.log = [];
+      state.logs = [];
     },
     setPreserveLog(state, action) {
       const { payload } = action;
@@ -51,18 +45,34 @@ const networkSlice = createSlice({
     },
   },
   extraReducers: {
-    [setFilterValue]: (state, action) => {
+    [setMethodFilter]: (state, action) => {
       const { payload: filterValue = "" } = action;
-      state._filterValue = filterValue;
+      state._methodFilter = filterValue;
+    },
+    [setContentFilter]: (state, action) => {
+      const { payload: filterValue = "" } = action;
+      state._contentFilter = filterValue;
     },
   },
 });
 
 export const selectFilteredLogs = createSelector(
-  [(state) => state.network.log, (state) => state.network._filterValue],
-  (log, filter) => {
-    const lcFilter = filter.toLowerCase();
-    return log.filter((l) => l.method?.toLowerCase().includes(lcFilter));
+  [
+    (state) => state.network.logs,
+    (state) => state.network._methodFilter,
+    (state) => state.network._contentFilter,
+  ],
+  (logs, methodFilter, contentFilter) => {
+    const lcMethodFilter = methodFilter.toLowerCase();
+    const lcContentFilter = contentFilter.toLowerCase();
+    return logs.filter(
+      (l) =>
+        l.method?.toLowerCase().includes(lcMethodFilter) &&
+        // TODO implement recursive search?
+        // TODO rethink this filter as it's filtering ALL the list when one arrives
+        (!contentFilter ||
+          JSON.stringify(l).toLowerCase().includes(lcContentFilter))
+    );
   }
 );
 

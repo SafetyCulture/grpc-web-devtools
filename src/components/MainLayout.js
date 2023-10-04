@@ -1,14 +1,13 @@
 // Copyright (c) 2019 SafetyCulture Pty Ltd. All Rights Reserved.
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Split from 'react-split';
-import './MainLayout.css';
-import NetworkDetails from './NetworkDetails';
-import NetworkEmpty from './NetworkEmpty';
-import NetworkList from './NetworkList';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Split from "react-split";
+import "./MainLayout.css";
+import NetworkDetails from "./NetworkDetails";
+import NetworkEmpty from "./NetworkEmpty";
+import NetworkList from "./NetworkList";
 class MainLayout extends Component {
-
   _renderContent() {
     const { isEmpty } = this.props;
     if (isEmpty) {
@@ -26,12 +25,9 @@ class MainLayout extends Component {
         <NetworkDetails />
       </Split>
     );
-
   }
 
   render() {
-
-
     return (
       <div className="vbox flex-auto">
         <div className="shadow-split-widget hbox widget">
@@ -42,5 +38,7 @@ class MainLayout extends Component {
   }
 }
 
-const mapStateToProps = state => ({ isEmpty: state.network.log.length === 0 })
-export default connect(mapStateToProps)(MainLayout)
+const mapStateToProps = (state) => ({
+  isEmpty: state.network.logs.length === 0,
+});
+export default connect(mapStateToProps)(MainLayout);
