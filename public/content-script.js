@@ -55,6 +55,16 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
         this._callbacks['error'](error);
       }
     });
+    stream.on('end', () => {
+      window.postMessage({
+        type: postType,
+        method,
+        methodType,
+      });
+      if (!!this._callbacks['end']) {
+        this._callbacks['end']();
+      }
+    });
     this._stream = stream;
   }
   StreamInterceptor.prototype.on = function (type, callback) {
