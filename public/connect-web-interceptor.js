@@ -5,12 +5,12 @@
 async function* readMessage(req, stream) {
   for await (const m of stream) {
     if (m) {
-      const resp = m.toJson?.();
+      const resp = m.toJson?.({emitDefaultValues: true});
       window.postMessage({
         type: "__GRPCWEB_DEVTOOLS__",
         methodType: "server_streaming",
         method: req.method.name,
-        request: req.message.toJson?.(),
+        request: req.message.toJson?.({emitDefaultValues: true}),
         response: resp,
       }, "*");
     }
@@ -31,8 +31,8 @@ const interceptor = (next) => async (req) => {
         type: "__GRPCWEB_DEVTOOLS__",
         methodType: "unary",
         method: req.method.name,
-        request: req.message.toJson(),
-        response: resp.message.toJson(),
+        request: req.message.toJson({emitDefaultValues: true}),
+        response: resp.message.toJson({emitDefaultValues: true}),
       }, "*")
       return resp;
     } else {
@@ -46,7 +46,7 @@ const interceptor = (next) => async (req) => {
       type: "__GRPCWEB_DEVTOOLS__",
       methodType: req.stream ? "server_streaming" : "unary",
       method: req.method.name,
-      request: req.message.toJson(),
+      request: req.message.toJson({emitDefaultValues: true}),
       response: undefined,
       error: {
         message: e.message,
