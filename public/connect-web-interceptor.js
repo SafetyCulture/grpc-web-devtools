@@ -46,7 +46,7 @@ const interceptor = (next) => async (req) => {
       type: "__GRPCWEB_DEVTOOLS__",
       methodType: req.stream ? "server_streaming" : "unary",
       method: req.method.name,
-      request: req.message.toJson(),
+      request: req.message.toJson?.(),
       response: undefined,
       error: {
         message: e.message,
