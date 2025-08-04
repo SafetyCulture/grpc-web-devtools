@@ -1,16 +1,22 @@
 /**
+ * In Connect v2, the `toJson` method is no longer available, and we can directly use the message itself.
+ */
+const toJson = (obj) => {
+  return obj.toJson?.() || obj;
+}
+/**
  * Reads the message from the stream and posts it to the window.
  * This is a generator function that will be passed to the response stream.
  */
 async function* readMessage(req, stream) {
   for await (const m of stream) {
     if (m) {
-      const resp = m.toJson?.();
+      const resp = toJson(m);
       window.postMessage({
         type: "__GRPCWEB_DEVTOOLS__",
         methodType: "server_streaming",
         method: req.method.name,
-        request: req.message.toJson?.(),
+        request: toJson(req.message),
         response: resp,
       }, "*");
     }
@@ -31,8 +37,8 @@ const interceptor = (next) => async (req) => {
         type: "__GRPCWEB_DEVTOOLS__",
         methodType: "unary",
         method: req.method.name,
-        request: req.message.toJson(),
-        response: resp.message.toJson(),
+        request: toJson(req.message),
+        response: toJson(resp.message),
       }, "*")
       return resp;
     } else {
@@ -46,7 +52,7 @@ const interceptor = (next) => async (req) => {
       type: "__GRPCWEB_DEVTOOLS__",
       methodType: req.stream ? "server_streaming" : "unary",
       method: req.method.name,
-      request: req.message.toJson?.(),
+      request: toJson(req.message),
       response: undefined,
       error: {
         message: e.message,
