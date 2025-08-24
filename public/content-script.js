@@ -61,6 +61,10 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
     this._callbacks[type] = callback;
     return this;
   }
+  StreamInterceptor.prototype.removeListener = function (type, callback) {
+    delete this._callbacks[type];
+    return this;
+  }
   StreamInterceptor.prototype.cancel = function () {
     this._stream.cancel()
   }
