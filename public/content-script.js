@@ -85,12 +85,28 @@ window.__GRPCWEB_DEVTOOLS__ = function (clients) {
       return this.rpcCall_(method, request, metadata, methodInfo, newCallback);
     }
     client.client_.rpcCall = client.client_.rpcCall2;
+
+    client.client_.unaryCall_ = client.client_.unaryCall;
     client.client_.unaryCall = function (method, request, metadata, methodInfo) {
-      return new Promise((resolve, reject) => {
-        this.rpcCall2(method, request, metadata, methodInfo, function (error, response) {
-          error ? reject(error) : resolve(response);
-        });
-      });
+      var posted = false;
+      var newCallback = function (err, response) {
+        if (!posted) {
+          window.postMessage({
+            type: postType,
+            method,
+            methodType: "unary",
+            request: request.toObject(),
+            response: err ? undefined : response.toObject(),
+            error: err || undefined,
+          }, "*")
+          posted = true;
+        }
+      }
+      const unaryCallPromise = this.unaryCall_(method, request, metadata, methodInfo);
+      unaryCallPromise
+        .then((response) => newCallback(null, response))
+        .catch((e) => newCallback(e, null));
+      return unaryCallPromise;
     };
     client.client_.serverStreaming_ = client.client_.serverStreaming;
     client.client_.serverStreaming2 = function (method, request, metadata, methodInfo) {
