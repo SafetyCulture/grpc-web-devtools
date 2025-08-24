@@ -10,7 +10,7 @@ Now supports dark mode.
 ### Chrome
 
 Via
-the [Chrome Web Store](https://chrome.google.com/webstore/detail/grpc-web-developer-tools/kanmilmfkjnoladbbamlclhccicldjaj) (
+the [Chrome Web Store](https://chromewebstore.google.com/detail/grpc-web-developer-tools/cacoibopgjlodngfokahhkphgcohakai) (
 recommended)
 
 or
