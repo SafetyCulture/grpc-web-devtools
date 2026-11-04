@@ -1,0 +1,71 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directories:
+      - "/example"
+      - "/example/client"
+      - "/example/server"
+    schedule:
+      interval: "monthly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "PEX-404"
+    cooldown:
+      default-days: 7
+    ignore:
+      - dependency-name: "288761735648.dkr.ecr.us-east-1.amazonaws.com/*"
+      - dependency-name: "457923578311.dkr.ecr.us-east-1.amazonaws.com/*"
+      - dependency-name: "303305260587.dkr.ecr.us-east-1.amazonaws.com/*"
+  - package-ecosystem: "docker-compose"
+    directory: "/example"
+    schedule:
+      interval: "monthly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "PEX-404"
+    cooldown:
+      default-days: 7
+    ignore:
+      - dependency-name: "288761735648.dkr.ecr.us-east-1.amazonaws.com/*"
+      - dependency-name: "457923578311.dkr.ecr.us-east-1.amazonaws.com/*"
+      - dependency-name: "303305260587.dkr.ecr.us-east-1.amazonaws.com/*"
+  - package-ecosystem: "gomod"
+    directories:
+      - "/"
+      - "/example/server"
+    schedule:
+      interval: "monthly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "PEX-404"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "sc-go.io/*"
+        - "github.com/SafetyCulture/*"
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/example/client"
+    schedule:
+      interval: "monthly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "PEX-404"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "@safetyculture/*"
